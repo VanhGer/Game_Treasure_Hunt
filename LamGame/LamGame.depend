@@ -1,0 +1,88 @@
+# depslib dependency file v1.0
+1645550268 source:d:\lamgame\main.cpp
+	"Common_Function.h"
+	"LoadObject.h"
+	"Character.h"
+	"MainCharacter.h"
+	"Skeleton.h"
+	"Weapon.h"
+
+1645548078 d:\lamgame\include\common_function.h
+	<iostream>
+	<chrono>
+	<random>
+	<stdio.h>
+	<SDL.h>
+	<SDL_image.h>
+	<Windows.h>
+	<string.h>
+
+1645503006 source:d:\lamgame\src\common_function.cpp
+	"Common_Function.h"
+
+1645547521 source:d:\lamgame\src\character.cpp
+	"Character.h"
+	"iostream"
+
+1645547537 d:\lamgame\include\character.h
+	<SDL.h>
+	<LoadObject.h>
+	<Object.h>
+
+1645500336 d:\lamgame\include\ltexture.h
+	"Common_Function.h"
+
+1645500229 source:d:\lamgame\src\ltexture.cpp
+	"Ltexture.h"
+
+1645545311 source:d:\lamgame\src\maincharacter.cpp
+	"MainCharacter.h"
+
+1645517851 d:\lamgame\include\maincharacter.h
+	"Common_Function.h"
+	"LoadObject.h"
+	"Character.h"
+
+1645502125 source:d:\lamgame\src\loadobject.cpp
+	"LoadObject.h"
+
+1645502069 d:\lamgame\include\loadobject.h
+	"Common_Function.h"
+
+1645516515 source:d:\lamgame\src\enemycharacter.cpp
+	"EnemyCharacter.h"
+
+1645516580 d:\lamgame\include\enemycharacter.h
+	"Common_Function.h"
+	"LoadObject.h"
+	"Character.h"
+
+1645518142 d:\lamgame\include\skeleton.h
+	"Common_Function.h"
+	"LoadObject.h"
+	"Character.h"
+
+1645545323 source:d:\lamgame\src\skeleton.cpp
+	"Skeleton.h"
+
+1645545355 d:\lamgame\include\object.h
+
+1645546496 source:d:\lamgame\src\arrow.cpp
+	"Arrow.h"
+
+1645545932 d:\lamgame\include\arrow.h
+	<Common_Function.h>
+	<LoadObject.h>
+	<Object.h>
+
+1645545369 source:d:\lamgame\src\object.cpp
+	"Object.h"
+
+1645546908 d:\lamgame\include\weapon.h
+	<Common_Function.h>
+	<LoadObject.h>
+	<Object.h>
+
+1645546859 source:d:\lamgame\src\weapon.cpp
+	"Weapon.h"
+

@@ -1,0 +1,11 @@
+Map : 4 chỗ
+1 : Tháp HN : n = 4 => +5 điểm
+(mỗi điểm +1 phút)
+2 : Sodoku 9x9 : số Maya cổ => đưa ra phương án chọn
+=> giải sodoku trong 15p => tờ dịch chữ Rune
+3: rune massage: https://docs.google.com/document/d/1uZfUADngTIeS-2iiQP39Dgc9zWtX-e_lxTlYdulh9eU/edit
+=>giải đố : dòng 1- chữ thứ...
+=> pass code 5 - 6 chữ cái
+=> gun : destroy skeleton
+4: bắn quái
+=> key =>treasure.
