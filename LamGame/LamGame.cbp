@@ -36,18 +36,18 @@
 		</Compiler>
 		<Unit filename="include/Character.h" />
 		<Unit filename="include/Common_Function.h" />
+		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/LoadObject.h" />
 		<Unit filename="include/MainCharacter.h" />
 		<Unit filename="include/Object.h" />
-		<Unit filename="include/Skeleton.h" />
 		<Unit filename="include/Weapon.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Character.cpp" />
 		<Unit filename="src/Common_Function.cpp" />
+		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/LoadObject.cpp" />
 		<Unit filename="src/MainCharacter.cpp" />
 		<Unit filename="src/Object.cpp" />
-		<Unit filename="src/Skeleton.cpp" />
 		<Unit filename="src/Weapon.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

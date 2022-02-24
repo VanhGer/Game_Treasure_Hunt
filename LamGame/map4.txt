@@ -1,0 +1,13 @@
+-0 - 30s : 20 skeleton
+30 - 60s : + 30 skeleton 
+1p - 1p30s: + 10 skeleton + 10 zombie
+1p30 - 2p : + 20 zombie
+2p - 2p30 : + 10 ske + 20 zombie
+2p30 - 3p : + 10 shrek
+3p - 3p30s : +  10 shrek
+3p30 - 4p : +10 zombie  +10 shrek
+4p - 4p30:  30 skeleton + 10 shrek
+4p30 - 5p : + 20 shrek + 20 zombie
+
+
+=> 100 Ske  + 80 zombie + 60 shrek

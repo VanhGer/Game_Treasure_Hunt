@@ -7,16 +7,18 @@ class Character : public Object{
     protected:
         // 0:up, 1: down, 2: left, 3:right
         SDL_Rect Rdir[4];
-        int NumAnimation[4];
-        int id;
+        int NumFrames[4];
+        int id, Hp;
         LoadObject  Dir[4];
     public:
         Character();
         ~Character();
         void setId(int val);
+        int getHp();
+        void setHp(int val);
         int getId();
         int getNum();
-        void changeNumAnimation(int Num);
+        void changeNumFrames(int Num);
         void goUp(int Lim, int Num);
         void goDown(int Lim, int Num);
         void goLeft(int Lim, int Num);
