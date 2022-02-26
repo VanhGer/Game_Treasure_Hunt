@@ -3,11 +3,18 @@
 Enemy::Enemy()
 {
      Character();
+     LastTimeMove = 0;
 }
 
 Enemy::~Enemy()
 {
     clean();
+}
+void Enemy::setLastTimeMove(int val){
+    LastTimeMove = val;
+}
+int Enemy::getLastTimeMove(){
+    return LastTimeMove;
 }
 void Enemy::clean() {
     for (int i = 0; i < 4; i++){

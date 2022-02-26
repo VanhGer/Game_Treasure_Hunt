@@ -4,18 +4,21 @@
 #include "MainCharacter.h"
 #include "Enemy.h"
 #include "Weapon.h"
+#include "TextObject.h"
 mt19937_64 rng(chrono::high_resolution_clock::now().time_since_epoch().count());
 long long Rand(long long l, long long r){
     return uniform_int_distribution<long long> (l, r) (rng);
 }
 LoadObject BackGround4, MainExplorer;
 MainCharacter Explorer;
+TTF_Font *gFont = NULL;
 Weapon Arrow[4];
 Enemy E[3][100];
 int check[2000][2000];
 int EnemyCount[3];
 bool kt[3][100], canShoot[4];
 vector <pii> EnemyList;
+int NumOfArrow = 1, idArrow = 1, numEnemyKilled = 0;
 bool create_GRenderer() {
     GRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                       SDL_RENDERER_PRESENTVSYNC);
@@ -55,6 +58,10 @@ bool initSDL(SDL_Window* &window) {
             if (! success) return false;
             success = create_PNG();
             if (! success) return false;
+            if( TTF_Init() == -1 ){
+                logSDLError(std::cout, "TTF could not be initialized", true);
+                return false;
+            }
         }
     }
     return true;
@@ -77,7 +84,25 @@ bool LoadBackGround(string path, SDL_Renderer *ren){
     }
     return true;
 }
-
+void loadArrow(){
+    if (idArrow == 1)
+         for (int i = 0; i < 4; i++){
+            Arrow[i].loadWeapon(GRenderer, "Arrow2.png");
+            Arrow[i].setSpeed(ArrowSpeed);
+        }
+    else
+        for (int i = 0; i < 4; i++){
+            Arrow[i].loadWeapon(GRenderer, "Arrow3.png");
+            Arrow[i].setSpeed(ArrowSpeed);
+        }
+}
+void loadFont(){
+    gFont = TTF_OpenFont( "font/OpenSans-Regular.ttf", 15);
+	if( gFont == NULL )
+	{
+		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+	}
+}
 bool loadMedia() {
     Map4 = {0, 0, 1120, 630};
     if (! LoadBackGround("GameHKI/Map/map4.png", GRenderer)){
@@ -89,19 +114,32 @@ bool loadMedia() {
     Explorer.setSpeed(MainSpeed);
     Explorer.setHp(MainHp);
     // Load Errow
-    for (int i = 0; i < 4; i++){
-        Arrow[i].loadWeapon(GRenderer);
-        Arrow[i].setSpeed(ArrowSpeed);
-    }
+    loadArrow();
+    loadFont();
     return 1;
 }
+pii RandPos(){
+    pii q;
+    int Rnd = Rand(0, 1);
+    if (Rnd == 0){
+        q.fi = Rand(0, 1) * SCREEN_WIDTH;
+        q.se = Rand(0, SCREEN_HEIGHT);
+    }
+    else {
+        q.fi = Rand(0, SCREEN_WIDTH);
+        q.se = Rand(0, 1) * SCREEN_HEIGHT;
+    }
+    return q;
+}
 void Enemy_Spawn(int id){
+    pii tmp;
     for (int i = 0; i < type[id].fi; i++){
         int x = EnemyCount[0];
         E[0][x].loadCharacter(GRenderer, "GameHKI/Skeleton");
         E[0][x].setSpeed(SkeletonSpeed);
-        E[0][x].setX(Rand(0, 1) * SCREEN_WIDTH);
-        E[0][x].setY(Rand(0, 1) * SCREEN_HEIGHT);
+        tmp = RandPos();
+        E[0][x].setX(tmp.fi);
+        E[0][x].setY(tmp.se);
         E[0][x].setHp(SkeletonHp);
         kt[0][x] = true;
         EnemyList.push_back(pii(0, x));
@@ -111,8 +149,9 @@ void Enemy_Spawn(int id){
         int x = EnemyCount[1];
         E[1][x].loadCharacter(GRenderer, "GameHKI/Zombie");
         E[1][x].setSpeed(ZombieSpeed);
-        E[1][x].setX(Rand(0, 1) * SCREEN_WIDTH);
-        E[1][x].setY(Rand(0, 1) * SCREEN_HEIGHT);
+        tmp = RandPos();
+        E[1][x].setX(tmp.fi);
+        E[1][x].setY(tmp.se);
         E[1][x].setHp(ZombieHp);
         kt[1][x] = true;
         EnemyList.push_back(pii(1, x));
@@ -122,50 +161,64 @@ void Enemy_Spawn(int id){
         int x = EnemyCount[2];
         E[2][x].loadCharacter(GRenderer, "GameHKI/Shrek");
         E[2][x].setSpeed(ShrekSpeed);
-        E[2][x].setX(Rand(0, 1) * SCREEN_WIDTH);
-        E[2][x].setY(Rand(0, 1) * SCREEN_HEIGHT);
+        tmp = RandPos();
+        E[2][x].setX(tmp.fi);
+        E[2][x].setY(tmp.se);
         E[2][x].setHp(ShrekHp);
         kt[2][x] = true;
         EnemyList.push_back(pii(2, x));
         EnemyCount[2]++;
     }
 }
-void Enemy_Move(){
-     for (int i = 0; i < EnemyList.size(); i++){
+bool Can_Move(int x, int y){
+    for (int i = 0; i < EnemyList.size(); i++){
         pii Q = EnemyList[i];
-        if (E[Q.fi][Q.se].getX() == Explorer.getX()){
-            if (E[Q.fi][Q.se].getY() < Explorer.getY()){
-               E[Q.fi][Q.se].goDown(Explorer.getY(), EnemyFrames);
+        if (E[Q.fi][Q.se].getX() == x && E[Q.fi][Q.se].getY() == y)
+            return 0;
+    }
+    return 1;
+}
+void Enemy_Move(){
+    int Epl_x = Explorer.getX();
+    int Epl_y = Explorer.getY();
+    for (int i = 0; i < EnemyList.size(); i++){
+        pii Q = EnemyList[i];
+        if (SDL_GetTicks64() - E[Q.fi][Q.se].getLastTimeMove() < 500)
+            continue;
+        int cur_x = E[Q.fi][Q.se].getX();
+        int cur_y = E[Q.fi][Q.se].getY();
+        int cur_speed = E[Q.fi][Q.se].getSpeed();
+        if (cur_x == Epl_x){
+            if (cur_y < Epl_y && Can_Move(cur_x, min(cur_y + cur_speed, Epl_y))){
+                    E[Q.fi][Q.se].goDown(Epl_y, EnemyFrames); continue;
             }
-            else if (E[Q.fi][Q.se].getY() > Explorer.getY()){
-                E[Q.fi][Q.se].goUp(Explorer.getY(), EnemyFrames);
+            if (cur_y > Epl_y && Can_Move(cur_x, max(cur_y - cur_speed, Epl_y))){
+                E[Q.fi][Q.se].goUp(Epl_y, EnemyFrames); continue;
             }
         }
-        else if (E[Q.fi][Q.se].getY() == Explorer.getY()){
-            if (E[Q.fi][Q.se].getX() < Explorer.getX()){
-                E[Q.fi][Q.se].goRight(Explorer.getX(), EnemyFrames);
+        if (cur_y == Epl_y){
+            if (cur_x < Epl_x && Can_Move(min(cur_x + cur_speed, Epl_x), cur_y)){
+                E[Q.fi][Q.se].goRight(Epl_x, EnemyFrames); continue;
             }
-            else if (E[Q.fi][Q.se].getX() > Explorer.getX()){
-                E[Q.fi][Q.se].goLeft(Explorer.getX(), EnemyFrames);
+            if (cur_x > Epl_x && Can_Move(max(cur_x - cur_speed, Epl_x), cur_y)){
+                E[Q.fi][Q.se].goLeft(Epl_x, EnemyFrames); continue;
+            }
+        }
+        int Rnd = Rand(0, 1);
+        if (Rnd){
+            if (cur_x < Epl_x && Can_Move(min(cur_x + cur_speed, Epl_x), cur_y)){
+                E[Q.fi][Q.se].goRight(Epl_x, EnemyFrames); continue;
+            }
+            if (cur_x > Epl_x && Can_Move(max(cur_x - cur_speed, Epl_x), cur_y)){
+                E[Q.fi][Q.se].goLeft(Epl_x, EnemyFrames); continue;
             }
         }
         else {
-            int d = Rand(0,5);
-            if (d <= 1){ // move Y
-                if (E[Q.fi][Q.se].getX() < Explorer.getX()){
-                    E[Q.fi][Q.se].goRight(Explorer.getX(), EnemyFrames);
-                }
-                else if (E[Q.fi][Q.se].getX() > Explorer.getX()){
-                    E[Q.fi][Q.se].goLeft(Explorer.getX(), EnemyFrames);
-                }
+            if (cur_y < Epl_y && Can_Move(cur_x, min(cur_y + cur_speed, Epl_y))){
+               E[Q.fi][Q.se].goDown(Epl_y, EnemyFrames); continue;
             }
-            if (2 <= d && d <= 4) {
-                if (E[Q.fi][Q.se].getY() < Explorer.getY()){
-                   E[Q.fi][Q.se].goDown(Explorer.getY(), EnemyFrames);
-                }
-                else if (E[Q.fi][Q.se].getY() > Explorer.getY()){
-                    E[Q.fi][Q.se].goUp(Explorer.getY(), EnemyFrames);
-                }
+            if (cur_y > Epl_y && Can_Move(cur_x, max(cur_y - cur_speed, Epl_y))){
+                E[Q.fi][Q.se].goUp(Epl_y, EnemyFrames); continue;
             }
         }
     }
@@ -179,7 +232,7 @@ void Arrow_Move(){
     int cur_x = Explorer.getX();
     int cur_y = Explorer.getY();
     int tmpx = 0, tmpy = 0;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < NumOfArrow; i++) {
         Arrow[i].setX(cur_x);
         Arrow[i].setY(cur_y);
         if (! EnemyList.size()) return;
@@ -202,7 +255,7 @@ void Arrow_Move(){
     }
 }
 void Arrow_Shot(int frame){
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < NumOfArrow; i++){
         if (! canShoot[i]) continue;
         Arrow[i].setX(Arrow[i].getX() + Arrow[i].getVx());
         Arrow[i].setY(Arrow[i].getY() + Arrow[i].getVy());
@@ -213,11 +266,20 @@ void Arrow_Shot(int frame){
             pii Q = EnemyList[j];
             if (Intersect(Arrow[i].getX(), Arrow[i].getY(), 32, 32,
             E[Q.fi][Q.se].getX(), E[Q.fi][Q.se].getY(), 60, 40)){
-                E[Q.fi][Q.se].setHp(E[Q.fi][Q.se].getHp() - ArrowDamn);
+                E[Q.fi][Q.se].setHp(E[Q.fi][Q.se].getHp() - ArrowDamn + ((idArrow == 1) ? 0 : 1));
                 if (E[Q.fi][Q.se].getHp() <= 0){
                     kt[Q.fi][Q.se] = false;
                     swap(EnemyList[j], EnemyList.back());
                     EnemyList.pop_back();
+                    numEnemyKilled++;
+                    if (numEnemyKilled >= NumOfArrow * 20 && idArrow != 2){
+                        NumOfArrow++;
+                        if (NumOfArrow == 5){
+                            NumOfArrow = 4;
+                            idArrow = 2;
+                            loadArrow();
+                        }
+                    }
                 }
                 canShoot[i] = false;
                 Arrow[i].setNum(2);
@@ -237,6 +299,7 @@ bool Check_Explorer(int &lastTimeDamage){
                 add = 1;
                 lastTimeDamage = SDL_GetTicks64();
             }
+            //if (add) E[Q.fi][Q.se].setNumFrames(9);
             if (Q.fi == 0){
                 Explorer.setHp(Explorer.getHp() - add*SkeletonDamn);
             }
@@ -267,6 +330,49 @@ void Explorer_Move(SDL_Event e){
         Explorer.goRight(SCREEN_WIDTH - CharacterW, MainFrames);
     }
 }
+TextObject Gametime;
+void show_game_time(){
+    Gametime.SetColor(TextObject::WHITE_TEXT);
+    //Show game time
+    std::string str_time = "Time: ";
+    Uint64 time_val = SDL_GetTicks64() / 1000;
+    Uint64 cur_time = 300 - time_val;
+    if (cur_time <= 0){
+        cout << "win";
+        return;
+    }
+    Uint64 cur_min = cur_time / 60;
+    Uint64 cur_sec = cur_time % 60;
+    std::string str_min = std::to_string(cur_min);
+    std::string str_sec = std::to_string(cur_sec);
+    if (cur_min != 0){
+        str_time += str_min; str_time += "m : ";
+    }
+     str_time += str_sec; str_time += " s";
+    Gametime.setText(str_time);
+    Gametime.LoadFromRenderText(gFont, GRenderer);
+    Gametime.RenderText(GRenderer, SCREEN_WIDTH - 200, 15);
+}
+void show_Enemy_Killed(){
+    TextObject NumEK;
+    NumEK.SetColor(TextObject::WHITE_TEXT);
+    std::string str_ek = "Enemies Killed: ";
+    std::string str_num = std::to_string(numEnemyKilled);
+    str_ek += str_num;
+    NumEK.setText(str_ek);
+    NumEK.LoadFromRenderText(gFont, GRenderer);
+    NumEK.RenderText(GRenderer, SCREEN_WIDTH/2, 15);
+}
+void show_ExHp(){
+    TextObject ExHp;
+    ExHp.SetColor(TextObject::RED_TEXT);
+    std::string str_hp = "HP : ";
+    std::string str_num = std::to_string(Explorer.getHp());
+    str_hp += str_num;
+    ExHp.setText(str_hp);
+    ExHp.LoadFromRenderText(gFont, GRenderer);
+    ExHp.RenderText(GRenderer, 200, 15);
+}
 bool RunMap4(){
     SDL_Event e;
     bool EnemySpawn = false, EnemyMove = false;
@@ -282,9 +388,9 @@ bool RunMap4(){
             Enemy_Move();
             EnemyMove = true;
         }
-        if (tt <= 9 && SDL_GetTicks64() > PlayingTime + 20000 && EnemySpawn){
+        if (tt <= 9 && SDL_GetTicks64() > PlayingTime + 30000 && EnemySpawn){
             tt++;
-            PlayingTime += 20000;
+            PlayingTime += 30000;
             Enemy_Spawn(tt);
         }
         while(SDL_PollEvent(&e) != 0){
@@ -300,27 +406,32 @@ bool RunMap4(){
              }
         }
         //render
-        if (SDL_GetTicks64() - tmp >= 1){
+        if (SDL_GetTicks64() - tmp >= 30){
             SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear(GRenderer);
             BackGround4.render(0, 0, GRenderer, &Map4);
             Explorer.display(GRenderer);
+            if (! Check_Explorer(lastTimeDamage)) return false;
             for (int i = 0; i < EnemyList.size(); i++){
                 pii Q = EnemyList[i];
                 //cout << i << " " << EnemyList[i].getX() << " " << EnemyList[i].getY() << '\n';
                 E[Q.fi][Q.se].display(GRenderer);
             }
-            if (! Check_Explorer(lastTimeDamage)) return false;
+            //Show game time
+
             if (EnemyMove && Shooting == false){
                 Arrow_Move();
-                for (int i = 0; i < 4; i++) canShoot[i] = true;
+                for (int i = 0; i < NumOfArrow; i++) canShoot[i] = true;
                 Shooting = true;
             }
             if (Shooting){
                 Arrow_Shot(cnt);
-                cnt++; cnt %= 20;
-                if (cnt == 19) { Shooting = false;}
+                cnt++; cnt %= 25;
+                if (cnt == 24) { Shooting = false;}
             }
+            show_game_time();
+            show_Enemy_Killed();
+            show_ExHp();
             tmp = SDL_GetTicks64();
         }
         SDL_RenderPresent(GRenderer);

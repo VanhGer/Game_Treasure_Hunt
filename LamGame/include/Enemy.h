@@ -12,7 +12,10 @@ class Enemy: public Character
         ~Enemy();
         void clean();
         void loadCharacter(SDL_Renderer *ren, std::string path);
+        int getLastTimeMove();
+        void setLastTimeMove(int val);
     protected:
+        int LastTimeMove;
 
 };
 

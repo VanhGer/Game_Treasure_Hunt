@@ -11,7 +11,7 @@ class Weapon : public Object
         ~Weapon();
         void clean();
         void display(SDL_Renderer *ren);
-        void loadWeapon(SDL_Renderer *ren);
+        void loadWeapon(SDL_Renderer *ren, std::string path);
         int getVx();
         int getVy();
         void setVx(int val);

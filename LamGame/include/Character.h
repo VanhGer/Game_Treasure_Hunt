@@ -18,6 +18,7 @@ class Character : public Object{
         void setHp(int val);
         int getId();
         int getNum();
+        void setNumFrames(int val);
         void changeNumFrames(int Num);
         void goUp(int Lim, int Num);
         void goDown(int Lim, int Num);

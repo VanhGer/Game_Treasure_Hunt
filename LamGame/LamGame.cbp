@@ -40,6 +40,7 @@
 		<Unit filename="include/LoadObject.h" />
 		<Unit filename="include/MainCharacter.h" />
 		<Unit filename="include/Object.h" />
+		<Unit filename="include/TextObject.h" />
 		<Unit filename="include/Weapon.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Character.cpp" />
@@ -48,6 +49,7 @@
 		<Unit filename="src/LoadObject.cpp" />
 		<Unit filename="src/MainCharacter.cpp" />
 		<Unit filename="src/Object.cpp" />
+		<Unit filename="src/TextObject.cpp" />
 		<Unit filename="src/Weapon.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

@@ -1,13 +1,14 @@
 # depslib dependency file v1.0
-1645633003 source:d:\lamgame\main.cpp
+1645884310 source:d:\lamgame\main.cpp
 	"Common_Function.h"
 	"LoadObject.h"
 	"Character.h"
 	"MainCharacter.h"
 	"Enemy.h"
 	"Weapon.h"
+	"TextObject.h"
 
-1645633319 d:\lamgame\include\common_function.h
+1645884822 d:\lamgame\include\common_function.h
 	<iostream>
 	<chrono>
 	<random>
@@ -22,11 +23,11 @@
 1645626564 source:d:\lamgame\src\common_function.cpp
 	"Common_Function.h"
 
-1645623314 source:d:\lamgame\src\character.cpp
+1645714075 source:d:\lamgame\src\character.cpp
 	"Character.h"
 	"iostream"
 
-1645623314 d:\lamgame\include\character.h
+1645714070 d:\lamgame\include\character.h
 	<SDL.h>
 	<LoadObject.h>
 	<Object.h>
@@ -80,19 +81,31 @@
 1645545369 source:d:\lamgame\src\object.cpp
 	"Object.h"
 
-1645588239 d:\lamgame\include\weapon.h
+1645805879 d:\lamgame\include\weapon.h
 	<Common_Function.h>
 	<LoadObject.h>
 	<Object.h>
 
-1645631299 source:d:\lamgame\src\weapon.cpp
+1645805908 source:d:\lamgame\src\weapon.cpp
 	"Weapon.h"
 
-1645602348 d:\lamgame\include\enemy.h
+1645709587 d:\lamgame\include\enemy.h
 	"Common_Function.h"
 	"LoadObject.h"
 	"Character.h"
 
-1645622447 source:d:\lamgame\src\enemy.cpp
+1645804985 source:d:\lamgame\src\enemy.cpp
 	"Enemy.h"
+
+1645868430 source:d:\lamgame\src\textobject.cpp
+	"TextObject.h"
+
+1645868440 d:\lamgame\include\textobject.h
+	<iostream>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<cmath>
+	<SDL.h>
 

@@ -35,6 +35,9 @@ int Character:: getHp(){
 int Character:: getNum(){
     return NumFrames[id];
 }
+void Character::setNumFrames(int val){
+    NumFrames[id] = val;
+}
 void Character:: changeNumFrames(int Num){
     NumFrames[id]++;
     NumFrames[id] %= Num;
