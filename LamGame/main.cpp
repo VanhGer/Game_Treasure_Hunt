@@ -9,7 +9,8 @@ mt19937_64 rng(chrono::high_resolution_clock::now().time_since_epoch().count());
 long long Rand(long long l, long long r){
     return uniform_int_distribution<long long> (l, r) (rng);
 }
-LoadObject BackGround4, MainExplorer;
+LoadObject BackGround[5];
+SDL_Rect RMap;
 MainCharacter Explorer;
 TTF_Font *gFont = NULL;
 Weapon Arrow[4];
@@ -67,7 +68,7 @@ bool initSDL(SDL_Window* &window) {
     return true;
 }
 void close(){
-    BackGround4.free();
+    BackGround[4].free();
     SDL_DestroyRenderer(GRenderer);
     SDL_DestroyWindow(window);
     window = NULL;
@@ -76,9 +77,9 @@ void close(){
 	IMG_Quit();
 	SDL_Quit();
 }
-SDL_Rect Map4;
-bool LoadBackGround(string path, SDL_Renderer *ren){
-    if (! BackGround4.loadFromFile(path.c_str(), ren)){
+
+bool LoadBackGround(int id, string path, SDL_Renderer *ren){
+    if (! BackGround[id].loadFromFile(path.c_str(), ren)){
         logSDLError(cout, "Unable to load sheet texture", 1);
         return false;
     }
@@ -104,8 +105,12 @@ void loadFont(){
 	}
 }
 bool loadMedia() {
-    Map4 = {0, 0, 1120, 630};
-    if (! LoadBackGround("GameHKI/Map/map4.png", GRenderer)){
+    RMap = {0, 0, 1120, 630};
+    if (! LoadBackGround(1, "GameHKI/Map1/map1.png", GRenderer)){
+        logSDLError(cout, "Unable to load map 1", 1);
+        return 0;
+    }
+    if (! LoadBackGround(4, "GameHKI/Map4/map4.png", GRenderer)){
         logSDLError(cout, "Unable to load map 4", 1);
         return 0;
     }
@@ -114,7 +119,6 @@ bool loadMedia() {
     Explorer.setSpeed(MainSpeed);
     Explorer.setHp(MainHp);
     // Load Errow
-    loadArrow();
     loadFont();
     return 1;
 }
@@ -135,7 +139,7 @@ void Enemy_Spawn(int id){
     pii tmp;
     for (int i = 0; i < type[id].fi; i++){
         int x = EnemyCount[0];
-        E[0][x].loadCharacter(GRenderer, "GameHKI/Skeleton");
+        E[0][x].loadCharacter(GRenderer, "GameHKI/Map4/Skeleton");
         E[0][x].setSpeed(SkeletonSpeed);
         tmp = RandPos();
         E[0][x].setX(tmp.fi);
@@ -147,7 +151,7 @@ void Enemy_Spawn(int id){
     }
     for (int i = 0; i < type[id].se.fi; i++){
         int x = EnemyCount[1];
-        E[1][x].loadCharacter(GRenderer, "GameHKI/Zombie");
+        E[1][x].loadCharacter(GRenderer, "GameHKI/Map4/Zombie");
         E[1][x].setSpeed(ZombieSpeed);
         tmp = RandPos();
         E[1][x].setX(tmp.fi);
@@ -159,7 +163,7 @@ void Enemy_Spawn(int id){
     }
     for (int i = 0; i < type[id].se.se; i++){
         int x = EnemyCount[2];
-        E[2][x].loadCharacter(GRenderer, "GameHKI/Shrek");
+        E[2][x].loadCharacter(GRenderer, "GameHKI/Map4/Shrek");
         E[2][x].setSpeed(ShrekSpeed);
         tmp = RandPos();
         E[2][x].setX(tmp.fi);
@@ -374,6 +378,7 @@ void show_ExHp(){
     ExHp.RenderText(GRenderer, 200, 15);
 }
 bool RunMap4(){
+    loadArrow();
     SDL_Event e;
     bool EnemySpawn = false, EnemyMove = false;
     Explorer.setX(SCREEN_WIDTH/2);
@@ -409,7 +414,7 @@ bool RunMap4(){
         if (SDL_GetTicks64() - tmp >= 30){
             SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear(GRenderer);
-            BackGround4.render(0, 0, GRenderer, &Map4);
+            BackGround[4].render(0, 0, GRenderer, &RMap);
             Explorer.display(GRenderer);
             if (! Check_Explorer(lastTimeDamage)) return false;
             for (int i = 0; i < EnemyList.size(); i++){
@@ -426,8 +431,8 @@ bool RunMap4(){
             }
             if (Shooting){
                 Arrow_Shot(cnt);
-                cnt++; cnt %= 25;
-                if (cnt == 24) { Shooting = false;}
+                cnt++; cnt %= 20;
+                if (cnt == 19) { Shooting = false;}
             }
             show_game_time();
             show_Enemy_Killed();
@@ -438,6 +443,47 @@ bool RunMap4(){
         //SDL_Delay(3000);
     }
     return true;
+}
+
+bool RunMap1(){
+    LoadObject rock, paper, scissors, monk, tg[4], mainp;
+    SDL_Rect OTT, RNumber;
+    OTT.h = 120; OTT.w = 120; OTT.x = 0; OTT.y = 0;
+    RNumber = {0, 0, 80, 148};
+    mainp.loadFromFile("GameHKI/Explorer2.png", GRenderer);
+    tg[1].loadFromFile("GameHKI/Map1/1.png", GRenderer);
+    tg[2].loadFromFile("GameHKI/Map1/2.png", GRenderer);
+    tg[3].loadFromFile("GameHKI/Map1/3.png", GRenderer);
+    rock.loadFromFile("GameHKI/Map1/rock1.png", GRenderer);
+    paper.loadFromFile("GameHKI/Map1/paper1.png", GRenderer);
+    scissors.loadFromFile("GameHKI/Map1/scissors1.png", GRenderer);
+    monk.loadFromFile("GameHKI/Map1/monk.png", GRenderer);
+    Uint64 tt = SDL_GetTicks64(), t1 = SDL_GetTicks64();
+    int click = 1, running = 1;
+    while (running) {
+        if (SDL_GetTicks64() - tt <= 30) continue;
+        SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_RenderClear(GRenderer);
+        BackGround[1].render(0, 0, GRenderer, &RMap);
+        monk.render(0, SCREEN_HEIGHT - 480, GRenderer, NULL);
+        mainp.render(778, SCREEN_HEIGHT - 480, GRenderer, NULL);
+        rock.render(240, 20, GRenderer, &OTT);
+        paper.render(490, 20, GRenderer, &OTT);
+        scissors.render(740, 20, GRenderer, &OTT);
+        if (click != 0){
+            if (SDL_GetTicks64() - t1 >= 1000){
+                click = (click + 1) % 4;
+                t1 = SDL_GetTicks64();
+                if (click == 0) running = 0;
+            }
+        }
+        if (click != 0)
+            tg[click].render(520, 260, GRenderer, &RNumber);
+        SDL_RenderPresent(GRenderer);
+        tt = SDL_GetTicks64();
+    }
+
+
 }
 int main(int argc, char* argv[])
 {
@@ -453,16 +499,17 @@ int main(int argc, char* argv[])
             logSDLError(cout, "Can not load media \n", 1);
         }
         else {
-            if (RunMap4()){
-                cout << "win";
-            }
-            else cout << "ga vai lon";
-            SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-            SDL_RenderClear(GRenderer);
-            LoadBackGround("GameHKI/GameOver.png", GRenderer);
-            BackGround4.render(0, 0, GRenderer, &Map4);
-            SDL_RenderPresent(GRenderer);
-            SDL_Delay(1000);
+            RunMap1();
+//            if (RunMap4()){
+//                cout << "win";
+//            }
+//            else cout << "ga vai lon";
+//            SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+//            SDL_RenderClear(GRenderer);
+//            LoadBackGround("GameHKI/GameOver.png", GRenderer);
+//            BackGround4.render(0, 0, GRenderer, &Map4);
+//            SDL_RenderPresent(GRenderer);
+            SDL_Delay(5000);
         }
     }
     //waitUntilKeyPressed();

@@ -11,6 +11,7 @@
 #include <string.h>
 #include <vector>
 #include <algorithm>
+#include "Object.h"
 #define pii pair<int, int>
 #define piii pair <int, pii >
 #define mp make_pair

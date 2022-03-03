@@ -1,5 +1,5 @@
 #include "Common_Function.h"
-
+#include "Object.h"
 
 void logSDLError(std::ostream& os, const std::string &msg, bool fatal){
     os << msg << " Error: " << SDL_GetError() << std::endl;
