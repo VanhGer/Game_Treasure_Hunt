@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1646329275 source:d:\lamgame\main.cpp
+1646495948 source:d:\lamgame\main.cpp
 	"Common_Function.h"
 	"LoadObject.h"
 	"Character.h"
@@ -8,7 +8,7 @@
 	"Weapon.h"
 	"TextObject.h"
 
-1646239376 d:\lamgame\include\common_function.h
+1646414754 d:\lamgame\include\common_function.h
 	<iostream>
 	<chrono>
 	<random>
@@ -121,11 +121,83 @@
 1646328275 source:d:\lamgame\src\lbutton.cpp
 	"LButton.h"
 
-1646328267 d:\lamgame\include\lbutton.h
+1646362651 d:\lamgame\include\lbutton.h
 	<Common_Function.h>
 	<SDL.h>
 	<SDL_image.h>
 	<LoadObject.h>
 	<stdio.h>
 	<string>
+
+1645714075 source:d:\treasure_hunt\lamgame\src\character.cpp
+	"Character.h"
+	"iostream"
+
+1645714070 d:\treasure_hunt\lamgame\include\character.h
+	<SDL.h>
+	<LoadObject.h>
+	<Object.h>
+
+1645502069 d:\treasure_hunt\lamgame\include\loadobject.h
+	"Common_Function.h"
+
+1646414754 d:\treasure_hunt\lamgame\include\common_function.h
+	<iostream>
+	<chrono>
+	<random>
+	<stdio.h>
+	<SDL.h>
+	<SDL_image.h>
+	<Windows.h>
+	<string.h>
+	<vector>
+	<algorithm>
+	"Object.h"
+
+1645625334 d:\treasure_hunt\lamgame\include\object.h
+
+1645886238 source:d:\treasure_hunt\lamgame\src\common_function.cpp
+	"Common_Function.h"
+	"Object.h"
+
+1645804985 source:d:\treasure_hunt\lamgame\src\enemy.cpp
+	"Enemy.h"
+
+1645709587 d:\treasure_hunt\lamgame\include\enemy.h
+	"Common_Function.h"
+	"LoadObject.h"
+	"Character.h"
+
+1645502125 source:d:\treasure_hunt\lamgame\src\loadobject.cpp
+	"LoadObject.h"
+
+1646303497 source:d:\treasure_hunt\lamgame\src\maincharacter.cpp
+	"MainCharacter.h"
+
+1645886053 d:\treasure_hunt\lamgame\include\maincharacter.h
+	"LoadObject.h"
+	"Character.h"
+
+1645545369 source:d:\treasure_hunt\lamgame\src\object.cpp
+	"Object.h"
+
+1645868430 source:d:\treasure_hunt\lamgame\src\textobject.cpp
+	"TextObject.h"
+
+1645868440 d:\treasure_hunt\lamgame\include\textobject.h
+	<iostream>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<cmath>
+	<SDL.h>
+
+1646303499 source:d:\treasure_hunt\lamgame\src\weapon.cpp
+	"Weapon.h"
+
+1645805879 d:\treasure_hunt\lamgame\include\weapon.h
+	<Common_Function.h>
+	<LoadObject.h>
+	<Object.h>
 

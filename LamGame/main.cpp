@@ -12,7 +12,7 @@ long long Rand(long long l, long long r){
 LoadObject BackGround[5];
 SDL_Rect RMap;
 MainCharacter Explorer;
-TTF_Font *gFont = NULL;
+TTF_Font *gFont = NULL, *LFont = NULL ;
 Weapon Arrow[4];
 Enemy E[3][100];
 int check[2000][2000];
@@ -97,30 +97,29 @@ void loadArrow(){
             Arrow[i].setSpeed(ArrowSpeed);
         }
 }
-void loadFont(){
+bool loadFont(){
     gFont = TTF_OpenFont( "font/OpenSans-Regular.ttf", 15);
+    LFont = TTF_OpenFont( "font/OpenSans-ExtraBold.ttf", 25);
 	if( gFont == NULL )
 	{
 		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+		return false;
 	}
+	return true;
 }
 bool loadMedia() {
     RMap = {0, 0, 1120, 630};
-    if (! LoadBackGround(1, "GameHKI/Map1/map1.png", GRenderer)){
-        logSDLError(cout, "Unable to load map 1", 1);
-        return 0;
-    }
-    if (! LoadBackGround(4, "GameHKI/Map4/map4.png", GRenderer)){
-        logSDLError(cout, "Unable to load map 4", 1);
-        return 0;
-    }
-    // load MainCharacter
-    Explorer.loadCharacter(GRenderer);
-    Explorer.setSpeed(MainSpeed);
-    Explorer.setHp(MainHp);
-    // Load Errow
-    loadFont();
-    return 1;
+//    if (! LoadBackGround(4, "GameHKI/Map4/map4.png", GRenderer)){
+//        logSDLError(cout, "Unable to load map 4", 1);
+//        return 0;
+//    }
+//    // load MainCharacter
+//    Explorer.loadCharacter(GRenderer);
+//    Explorer.setSpeed(MainSpeed);
+//    Explorer.setHp(MainHp);
+//    // Load Errow
+    return loadFont();
+
 }
 pii RandPos(){
     pii q;
@@ -445,53 +444,231 @@ bool RunMap4(){
     return true;
 }
 
-bool RunMap1(){
-    LoadObject rock, paper, scissors, monk, tg[4], mainp;
-    SDL_Rect OTT, RNumber;
-    OTT.h = 120; OTT.w = 120; OTT.x = 0; OTT.y = 0;
+// Map1:
+LoadObject rock, paper, scissors, monk, tg[3], choice[3], result[2], mainp;
+TextObject showNum;
+SDL_Point pos[3];
+SDL_Rect OTT[3], RNumber;
+void LoadMap1(){
+    if (! LoadBackGround(1, "GameHKI/Map1/map1.png", GRenderer)){
+        logSDLError(cout, "Unable to load map 1", 1);
+    }
+    showNum.SetColor(TextObject::WHITE_TEXT);
+    for (int i = 0; i < 3; i++){
+        OTT[i].h = 120; OTT[i].w = 120; OTT[i].x = 0; OTT[i].y = 0;
+    }
+    pos[0] = {240, 20}; pos[1] = {490, 20}; pos[2] = {740, 20};
     RNumber = {0, 0, 80, 148};
     mainp.loadFromFile("GameHKI/Explorer2.png", GRenderer);
-    tg[1].loadFromFile("GameHKI/Map1/1.png", GRenderer);
-    tg[2].loadFromFile("GameHKI/Map1/2.png", GRenderer);
-    tg[3].loadFromFile("GameHKI/Map1/3.png", GRenderer);
+    result[0].loadFromFile("GameHKI/Map1/win.png", GRenderer);
+    result[1].loadFromFile("GameHKI/Map1/lose.png", GRenderer);
+    tg[0].loadFromFile("GameHKI/Map1/1.png", GRenderer);
+    tg[1].loadFromFile("GameHKI/Map1/2.png", GRenderer);
+    tg[2].loadFromFile("GameHKI/Map1/3.png", GRenderer);
+    choice[0].loadFromFile("GameHKI/Map1/rock.png", GRenderer);
+    choice[1].loadFromFile("GameHKI/Map1/paper.png", GRenderer);
+    choice[2].loadFromFile("GameHKI/Map1/scissors.png", GRenderer);
     rock.loadFromFile("GameHKI/Map1/rock1.png", GRenderer);
     paper.loadFromFile("GameHKI/Map1/paper1.png", GRenderer);
     scissors.loadFromFile("GameHKI/Map1/scissors1.png", GRenderer);
     monk.loadFromFile("GameHKI/Map1/monk.png", GRenderer);
-    Uint64 tt = SDL_GetTicks64(), t1 = SDL_GetTicks64();
-    int click = 1, running = 1;
-    while (running) {
-        if (SDL_GetTicks64() - tt <= 30) continue;
+}
+void CloseMap1(){
+    rock.free(); paper.free(); scissors.free(); monk.free(); mainp.free();
+    for (int i = 0; i < 3; i++) {tg[i].free(); choice[i].free();}
+    showNum.Free();
+}
+void Intro1(){
+    LoadObject intro1;
+    intro1.loadFromFile("GameHKI/Intro/intro1.png", GRenderer);
+    SDL_Event e; bool Running = true;
+    while (Running) {
+        while( SDL_PollEvent( &e ) != 0 ){
+            //User requests quit
+            if( e.type == SDL_QUIT ){
+                Running = false;
+            }
+            //Handle button events
+            if (e.type == SDL_MOUSEBUTTONDOWN)
+                Running = false;
+        }
+        BackGround[1].render(0, 0, GRenderer, &RMap);
+        intro1.render(0, 0, GRenderer, NULL);
+        SDL_RenderPresent(GRenderer);
+    }
+    intro1.free();
+}
+bool RunMap1(){
+    LoadMap1();
+    Intro1();
+    Uint64 StartTime = SDL_GetTicks64(), cnttime, showchoice;
+    int click = 3, Running = 1, x,y, Pchoice = -1, COMchoice;
+    int NumGames = 1, NumWins = 0;
+    bool donecount = true, dowin = true;
+    while (Running) {
+        if (SDL_GetTicks64() - StartTime <= 30) continue;
         SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(GRenderer);
         BackGround[1].render(0, 0, GRenderer, &RMap);
         monk.render(0, SCREEN_HEIGHT - 480, GRenderer, NULL);
         mainp.render(778, SCREEN_HEIGHT - 480, GRenderer, NULL);
-        rock.render(240, 20, GRenderer, &OTT);
-        paper.render(490, 20, GRenderer, &OTT);
-        scissors.render(740, 20, GRenderer, &OTT);
-        if (click != 0){
-            if (SDL_GetTicks64() - t1 >= 1000){
-                click = (click + 1) % 4;
-                t1 = SDL_GetTicks64();
-                if (click == 0) running = 0;
+        rock.render(pos[0].x, pos[0].y, GRenderer, &OTT[0]);
+        paper.render(pos[1].x, pos[1].y, GRenderer, &OTT[1]);
+        scissors.render(pos[2].x, pos[2].y, GRenderer, &OTT[2]);
+        SDL_Event e;
+        while( SDL_PollEvent( &e ) != 0 && Pchoice == -1){
+            //User requests quit
+            if( e.type == SDL_QUIT ){
+                Running = false;
+            }
+            //Handle button events
+            if(click == 3 && (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)){
+                SDL_GetMouseState(&x, &y);
+                for (int i = 0; i < 3; i++){
+                    bool inside = true;
+                    if (x < pos[i].x || x > pos[i].x + OTT[i].w || y < pos[i].y || y > pos[i].y + OTT[i].h)
+                        inside = false;
+                    if (! inside) OTT[i].x = 0;
+                    else {
+                        if (e.type == SDL_MOUSEBUTTONDOWN) {
+                                cnttime = SDL_GetTicks64(); Pchoice = i;
+                                click = 0; OTT[i].x = 120; donecount = false;
+                        }
+                        if (e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION) OTT[i].x = 0;
+                    }
+                }
             }
         }
-        if (click != 0)
-            tg[click].render(520, 260, GRenderer, &RNumber);
+        if (Pchoice != -1){
+            if (! donecount){
+                if (SDL_GetTicks64() - cnttime >= 1000 && click != 3) {
+                        click++; cnttime = SDL_GetTicks64();
+                        if (click == 3) {
+                            donecount = true;
+                            COMchoice = Rand(0, 1);
+                            if (COMchoice) COMchoice = (Pchoice - 1 + 3) % 3;
+                            else  COMchoice = (Pchoice + 1 + 3) % 3;
+                            showchoice = SDL_GetTicks64();
+                        }
+                }
+                if (click != 3)
+                    tg[click].render(520, 260, GRenderer, &RNumber);
+            }
+            if (donecount){
+                if (SDL_GetTicks64() - showchoice <= 1500){
+                    choice[Pchoice].render(700, 300, GRenderer, NULL);
+                    choice[COMchoice].render(300, 300, GRenderer, NULL);
+                }
+                else {
+                    if ((Pchoice == 0 && COMchoice == 2) || (Pchoice == 1 && COMchoice == 0)
+                        || (Pchoice == 2 && COMchoice == 1))
+                            NumWins++;
+                    NumGames++;
+                    Pchoice = -1;
+                }
+            }
+        }
+        string str_val = "Win :";
+        str_val += std::to_string(NumWins);
+        str_val += "  Games : ";
+        str_val += std::to_string(NumGames);
+        str_val += " /5";
+        showNum.setText(str_val);
+        showNum.LoadFromRenderText(gFont, GRenderer);
+        showNum.RenderText(GRenderer, 0, 0);
+        StartTime = SDL_GetTicks64();
+        if (NumWins == 3) {
+            result[0].render(485, 200, GRenderer, NULL);
+            SDL_RenderPresent(GRenderer);
+            SDL_Delay(1000);
+            break;
+        }
+        if (NumGames - NumWins > 3 ||(NumGames - 1 == 5 && NumWins < 3)) {
+            dowin = false;
+            result[1].render(485, 200, GRenderer, NULL);
+            SDL_RenderPresent(GRenderer);
+            SDL_Delay(1000);
+            break;
+        }
         SDL_RenderPresent(GRenderer);
-        tt = SDL_GetTicks64();
+
     }
+    // close
+    CloseMap1();
+    return dowin;
 
-
+}
+void Loading(){
+    LoadObject loading;
+    TextObject Percent;
+    loading.loadFromFile("GameHKI/lock.png", GRenderer);
+    Percent.SetColor(TextObject::WHITE_TEXT);
+    Uint64 stime = SDL_GetTicks64();
+    int cur = 0;
+    string str_val;
+    while (cur != 100){
+        if (SDL_GetTicks64() - stime >= 25){
+            loading.render(0, 0, GRenderer, NULL);
+            cur++;
+            str_val = std::to_string(cur);
+            str_val += "%";
+            Percent.setText(str_val);
+            Percent.LoadFromRenderText(LFont, GRenderer);
+            Percent.RenderText(GRenderer, 532, 575);
+            stime = SDL_GetTicks64();
+            SDL_RenderPresent(GRenderer);
+        }
+    }
+    loading.free(); Percent.Free();
+}
+bool LoadMainMenu(){
+    LoadObject Start, Quit; SDL_Rect Rstart, Rquit;
+    BackGround[0].loadFromFile("GameHKI/welcome.png", GRenderer);
+    Start.loadFromFile("GameHKI/Start.png", GRenderer);
+    Quit.loadFromFile("GameHKI/Quit.png", GRenderer);
+    Rstart = {0, 0, 128, 64}; Rquit = {0, 0, 128, 64};
+    bool Running = true;
+    int x, y, inside = 0;
+    SDL_Event e;
+    while (Running){
+        while( SDL_PollEvent( &e ) != 0 ){
+            //User requests quit
+            if( e.type == SDL_QUIT ){
+                Running = false;
+            }
+            //Handle button events
+            if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP){
+                SDL_GetMouseState(&x, &y);
+                inside = 0;
+                if (x >= 300 && x <= 428 && y >= 500 && y <= 564) inside = 1;
+                if (x >= 630 && x <= 758 && y >= 500 && y <= 564) inside = 2;
+                if (e.type == SDL_MOUSEBUTTONDOWN && inside) {
+                    if (inside == 1) Rstart.x = 128;
+                    else Rquit.x = 128;
+                }
+                else {
+                    Rstart.x = 0; Rquit.x = 0; inside = 0;
+                }
+            }
+        }
+        BackGround[0].render(0, 0, GRenderer, &RMap);
+        Start.render(300, 500, GRenderer, &Rstart);
+        Quit.render(630, 500, GRenderer, &Rquit);
+        SDL_RenderPresent(GRenderer);
+        if (inside) {
+            SDL_Delay(500);
+            break;
+        }
+    }
+    BackGround[0].free(); Start.free(); Quit.free();
+    return (inside == 1);
 }
 int main(int argc, char* argv[])
 {
     if (! initSDL(window)) {
         logSDLError(cout, "Can not initialize \n", 1);
     }
-    else
-        {
+    else{
         WindowSurface = SDL_GetWindowSurface(window);
 //    // Your drawing code here
 //    // use SDL_RenderPresent(renderer) to show it
@@ -499,20 +676,32 @@ int main(int argc, char* argv[])
             logSDLError(cout, "Can not load media \n", 1);
         }
         else {
-            RunMap1();
-//            if (RunMap4()){
-//                cout << "win";
-//            }
-//            else cout << "ga vai lon";
-//            SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-//            SDL_RenderClear(GRenderer);
-//            LoadBackGround("GameHKI/GameOver.png", GRenderer);
-//            BackGround4.render(0, 0, GRenderer, &Map4);
-//            SDL_RenderPresent(GRenderer);
-            SDL_Delay(5000);
+            bool Running = true;
+            while (Running){
+                if (LoadMainMenu()){
+                    Loading();
+                    if (! RunMap1()) continue;
+
+                }
+                else {
+                    break;
+                }
+               // Loading();
+    //            if (RunMap1()){
+    //                Loading();
+    //            }
+//                if (RunMap4()){
+//                    cout << "win";
+//                }
+//                else cout << "ga vai lon";
+//                SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+//                SDL_RenderClear(GRenderer);
+//                LoadBackGround("GameHKI/GameOver.png", GRenderer);
+//                BackGround4.render(0, 0, GRenderer, &Map4);
+//                SDL_RenderPresent(GRenderer);
+//                SDL_Delay(5000);
+            }
         }
     }
-    //waitUntilKeyPressed();
-    //quitSDL(window, renderer);
     return 0;
 }

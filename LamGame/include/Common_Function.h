@@ -20,7 +20,7 @@
 using namespace std;
 const int SCREEN_WIDTH = 1120;
 const int SCREEN_HEIGHT = 630;
-const std::string WINDOW_TITLE = "Hunting Treasure";
+const std::string WINDOW_TITLE = "Treasure Hunt";
 const int MainFrames = 6;
 const int EnemyFrames = 9;
 const int ArrowFrames = 2;
