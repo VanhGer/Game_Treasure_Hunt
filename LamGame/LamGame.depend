@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1646495948 source:d:\lamgame\main.cpp
+1647360885 source:d:\lamgame\main.cpp
 	"Common_Function.h"
 	"LoadObject.h"
 	"Character.h"
@@ -7,27 +7,33 @@
 	"Enemy.h"
 	"Weapon.h"
 	"TextObject.h"
+	"Map1.h"
+	"Map2.h"
+	"Map4.h"
 
-1646414754 d:\lamgame\include\common_function.h
+1647359055 d:\lamgame\include\common_function.h
 	<iostream>
 	<chrono>
 	<random>
 	<stdio.h>
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_ttf.h>
 	<Windows.h>
 	<string.h>
 	<vector>
 	<algorithm>
 	"Object.h"
+	"TextObject.h"
+	"LoadObject.h"
+	"MainCharacter.h"
 
-1645886238 source:d:\lamgame\src\common_function.cpp
+1647338425 source:d:\lamgame\src\common_function.cpp
 	"Common_Function.h"
 	"Object.h"
 
-1645714075 source:d:\lamgame\src\character.cpp
+1647359290 source:d:\lamgame\src\character.cpp
 	"Character.h"
-	"iostream"
 
 1645714070 d:\lamgame\include\character.h
 	<SDL.h>
@@ -40,18 +46,21 @@
 1645500229 source:d:\lamgame\src\ltexture.cpp
 	"Ltexture.h"
 
-1646303497 source:d:\lamgame\src\maincharacter.cpp
+1647359042 source:d:\lamgame\src\maincharacter.cpp
 	"MainCharacter.h"
 
-1645886053 d:\lamgame\include\maincharacter.h
+1647358962 d:\lamgame\include\maincharacter.h
 	"LoadObject.h"
 	"Character.h"
 
 1645502125 source:d:\lamgame\src\loadobject.cpp
 	"LoadObject.h"
 
-1645502069 d:\lamgame\include\loadobject.h
-	"Common_Function.h"
+1647336347 d:\lamgame\include\loadobject.h
+	<string.h>
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
 
 1645516515 source:d:\lamgame\src\enemycharacter.cpp
 	"EnemyCharacter.h"
@@ -82,20 +91,18 @@
 1645545369 source:d:\lamgame\src\object.cpp
 	"Object.h"
 
-1645805879 d:\lamgame\include\weapon.h
-	<Common_Function.h>
+1647359379 d:\lamgame\include\weapon.h
 	<LoadObject.h>
 	<Object.h>
 
-1646303499 source:d:\lamgame\src\weapon.cpp
+1647359393 source:d:\lamgame\src\weapon.cpp
 	"Weapon.h"
 
-1645709587 d:\lamgame\include\enemy.h
-	"Common_Function.h"
+1647359317 d:\lamgame\include\enemy.h
 	"LoadObject.h"
 	"Character.h"
 
-1645804985 source:d:\lamgame\src\enemy.cpp
+1647359348 source:d:\lamgame\src\enemy.cpp
 	"Enemy.h"
 
 1645868430 source:d:\lamgame\src\textobject.cpp
@@ -110,13 +117,14 @@
 	<cmath>
 	<SDL.h>
 
-1646239387 source:d:\lamgame\src\map4.cpp
+1647361086 source:d:\lamgame\src\map4.cpp
+	"Map4.h"
 
-1646238279 d:\lamgame\include\map4.h
-	<MainCharacter.h>
-	<Enemy.h>
-	<Weapon.h>
-	<TextObject.h>
+1647360906 d:\lamgame\include\map4.h
+	"Common_Function.h"
+	"Weapon.h"
+	"Enemy.h"
+	"TextObject.h"
 
 1646328275 source:d:\lamgame\src\lbutton.cpp
 	"LButton.h"
@@ -129,75 +137,19 @@
 	<stdio.h>
 	<string>
 
-1645714075 source:d:\treasure_hunt\lamgame\src\character.cpp
-	"Character.h"
-	"iostream"
-
-1645714070 d:\treasure_hunt\lamgame\include\character.h
-	<SDL.h>
-	<LoadObject.h>
-	<Object.h>
-
-1645502069 d:\treasure_hunt\lamgame\include\loadobject.h
+1647340035 d:\lamgame\include\map1.h
 	"Common_Function.h"
-
-1646414754 d:\treasure_hunt\lamgame\include\common_function.h
-	<iostream>
-	<chrono>
-	<random>
-	<stdio.h>
-	<SDL.h>
-	<SDL_image.h>
-	<Windows.h>
-	<string.h>
-	<vector>
-	<algorithm>
-	"Object.h"
-
-1645625334 d:\treasure_hunt\lamgame\include\object.h
-
-1645886238 source:d:\treasure_hunt\lamgame\src\common_function.cpp
-	"Common_Function.h"
-	"Object.h"
-
-1645804985 source:d:\treasure_hunt\lamgame\src\enemy.cpp
-	"Enemy.h"
-
-1645709587 d:\treasure_hunt\lamgame\include\enemy.h
-	"Common_Function.h"
-	"LoadObject.h"
-	"Character.h"
-
-1645502125 source:d:\treasure_hunt\lamgame\src\loadobject.cpp
-	"LoadObject.h"
-
-1646303497 source:d:\treasure_hunt\lamgame\src\maincharacter.cpp
-	"MainCharacter.h"
-
-1645886053 d:\treasure_hunt\lamgame\include\maincharacter.h
-	"LoadObject.h"
-	"Character.h"
-
-1645545369 source:d:\treasure_hunt\lamgame\src\object.cpp
-	"Object.h"
-
-1645868430 source:d:\treasure_hunt\lamgame\src\textobject.cpp
 	"TextObject.h"
+	"LoadObject.h"
 
-1645868440 d:\treasure_hunt\lamgame\include\textobject.h
-	<iostream>
-	<SDL_image.h>
-	<SDL_ttf.h>
-	<stdio.h>
-	<string>
-	<cmath>
-	<SDL.h>
+1647339465 source:d:\lamgame\src\map1.cpp
+	"Map1.h"
 
-1646303499 source:d:\treasure_hunt\lamgame\src\weapon.cpp
-	"Weapon.h"
+1647340512 source:d:\lamgame\src\map2.cpp
+	"Map2.h"
 
-1645805879 d:\treasure_hunt\lamgame\include\weapon.h
-	<Common_Function.h>
-	<LoadObject.h>
-	<Object.h>
+1647339920 d:\lamgame\include\map2.h
+	"Common_Function.h"
+	"TextObject.h"
+	"LoadObject.h"
 

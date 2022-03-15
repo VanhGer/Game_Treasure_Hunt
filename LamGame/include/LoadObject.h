@@ -1,7 +1,11 @@
 #ifndef LOADOBJECT_H
 #define LOADOBJECT_H
 
-#include "Common_Function.h"
+//#include "Common_Function.h"
+#include <string.h>
+#include <iostream>
+#include <SDL.h>
+#include <SDL_image.h>
 class LoadObject
 {
 public:

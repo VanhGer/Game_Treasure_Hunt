@@ -40,5 +40,5 @@ void Weapon::display(SDL_Renderer *ren){
 }
 void Weapon::loadWeapon(SDL_Renderer *ren, std::string path) {
     if (!Arr.loadFromFile("GameHKI/Map4/Arrow/" + path, ren))
-        logSDLError(std::cout, "Unable to load Arrow", 1);
+        std::cout << "Unable to load Arrow";
 }

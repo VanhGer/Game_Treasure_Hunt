@@ -1,7 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "Common_Function.h"
 #include "LoadObject.h"
 #include "Character.h"
 

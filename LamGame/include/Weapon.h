@@ -1,7 +1,6 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include<Common_Function.h>
 #include<LoadObject.h>
 #include <Object.h>
 class Weapon : public Object

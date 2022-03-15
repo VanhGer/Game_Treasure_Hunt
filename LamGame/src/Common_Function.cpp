@@ -22,3 +22,14 @@ bool Intersect(int x, int y, int h, int w, int x2, int y2, int h2, int w2){
     }
     return 0;
 }
+bool LoadBackGround(int id, string path, SDL_Renderer *ren){
+    if (! BackGround[id].loadFromFile(path.c_str(), ren)){
+        logSDLError(cout, "Unable to load sheet texture", 1);
+        return false;
+    }
+    return true;
+}
+long long Rand(long long l, long long r)
+{
+    return uniform_int_distribution<long long> (l, r) (rng);
+}

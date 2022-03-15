@@ -2,104 +2,24 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src\TextObject.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Character.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1296" topLine="0" />
+			<Cursor1 position="152" topLine="2" />
 		</Cursor>
 	</File>
-	<File name="src\Character.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Weapon.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="779" topLine="41" />
+			<Cursor1 position="777" topLine="16" />
 		</Cursor>
 	</File>
-	<File name="include\LoadObject.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\LoadObject.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="387" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Object.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="192" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\Weapon.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="322" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\LoadObject.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="140" topLine="10" />
+			<Cursor1 position="76" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\Common_Function.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="51" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="24543" topLine="91" />
-		</Cursor>
-		<Folding>
-			<Collapse line="22" />
-			<Collapse line="34" />
-			<Collapse line="43" />
-			<Collapse line="80" />
-			<Collapse line="87" />
-			<Collapse line="123" />
-			<Collapse line="136" />
-			<Collapse line="175" />
-			<Collapse line="183" />
-			<Collapse line="233" />
-			<Collapse line="259" />
-			<Collapse line="294" />
-			<Collapse line="321" />
-			<Collapse line="336" />
-			<Collapse line="358" />
-			<Collapse line="368" />
-			<Collapse line="378" />
-			<Collapse line="451" />
-			<Collapse line="475" />
-			<Collapse line="480" />
-			<Collapse line="500" />
-			<Collapse line="600" />
-			<Collapse line="623" />
-		</Folding>
-	</File>
-	<File name="include\MainCharacter.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="366" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\Enemy.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="358" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Weapon.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="711" topLine="16" />
-		</Cursor>
-	</File>
-	<File name="include\Character.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="42" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="src\Enemy.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="554" topLine="8" />
-		</Cursor>
-	</File>
-	<File name="src\MainCharacter.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="842" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\TextObject.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1190" topLine="16" />
+			<Cursor1 position="1047" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="include\Object.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -107,9 +27,113 @@
 			<Cursor1 position="309" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="src\Map4.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11306" topLine="6" />
+		</Cursor>
+		<Folding>
+			<Collapse line="1" />
+			<Collapse line="13" />
+			<Collapse line="26" />
+			<Collapse line="65" />
+			<Collapse line="73" />
+			<Collapse line="123" />
+			<Collapse line="149" />
+			<Collapse line="184" />
+			<Collapse line="211" />
+			<Collapse line="225" />
+			<Collapse line="247" />
+			<Collapse line="257" />
+		</Folding>
+	</File>
+	<File name="src\Map1.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5273" topLine="81" />
+		</Cursor>
+	</File>
+	<File name="include\Weapon.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="36" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Enemy.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="970" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="src\Map2.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1978" topLine="46" />
+		</Cursor>
+	</File>
+	<File name="include\TextObject.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="186" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\MainCharacter.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="52" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Map1.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="178" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="include\Common_Function.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="909" topLine="16" />
+			<Cursor1 position="1177" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="include\Map4.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="893" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="src\TextObject.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="364" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Enemy.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="34" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Character.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="22" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Object.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="192" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\LoadObject.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1275" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2052" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="10" />
+			<Collapse line="22" />
+			<Collapse line="31" />
+			<Collapse line="57" />
+			<Collapse line="67" />
+			<Collapse line="95" />
+			<Collapse line="119" />
+			<Collapse line="162" />
+		</Folding>
+	</File>
+	<File name="src\MainCharacter.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="908" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

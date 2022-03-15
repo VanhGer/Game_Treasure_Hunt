@@ -7,11 +7,15 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <Windows.h>
 #include <string.h>
 #include <vector>
 #include <algorithm>
 #include "Object.h"
+#include "TextObject.h"
+#include "LoadObject.h"
+#include "MainCharacter.h"
 #define pii pair<int, int>
 #define piii pair <int, pii >
 #define mp make_pair
@@ -39,6 +43,11 @@ const int SkeletonDamn = 2;
 const int ArrowDamn = 2;
 const int CharacterH = 60;
 const int CharacterW = 40;
+static SDL_Rect RMap;
+static MainCharacter Explorer;
+static TTF_Font *gFont = NULL, *LFont = NULL ;
+static TextObject showNum;
+static LoadObject BackGround[5], mainp,  result[2];
 static SDL_Surface *WindowSurface = NULL;
 static SDL_Window *window = NULL;
 static SDL_Renderer* GRenderer = NULL;
@@ -47,4 +56,7 @@ mp(0, mp(20, 5)), mp(10, mp(20, 10)),mp(30, mp(10, 0)), mp(30, mp(10, 10)), mp(2
 void logSDLError(std::ostream& os, const std::string &msg, bool fatal);
 int getDistance(int x, int y, int u, int v);
 bool Intersect(int x, int y, int h, int w, int x2, int y2, int h2, int w2);
+static mt19937_64 rng(chrono::high_resolution_clock::now().time_since_epoch().count());
+long long Rand(long long l, long long r);
+
 #endif // COMMON_FUNCTION_H
