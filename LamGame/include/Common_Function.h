@@ -2,6 +2,7 @@
 #define COMMON_FUNCTION_H
 
 #include <iostream>
+#include <fstream>
 #include <chrono>
 #include <random>
 #include <stdio.h>
@@ -41,7 +42,7 @@ const int ZombieDamn = 3;
 const int ShrekDamn = 3;
 const int SkeletonDamn = 2;
 const int ArrowDamn = 2;
-const int CharacterH = 60;
+const int CharacterH = 56;
 const int CharacterW = 40;
 static SDL_Rect RMap;
 static MainCharacter Explorer;

@@ -4,20 +4,17 @@ Weapon::Weapon()
 {
     Object();
     num = 0;
-    RArr = {0, 0, 32, 32};
     Vx = 0; Vy = 0;
     tx = 0; ty = 0;
 }
-
-Weapon::~Weapon()
-{
+Weapon::~Weapon(){
     clean();
 }
 void Weapon:: clean(){
-    Arr.free();
+    Obj.free();
     num = 0;
-
-    RArr = {0, 0, 0, 0};
+    add = 0;
+    RObj = {0, 0, 0, 0};
 }
 int Weapon::getVx(){
     return Vx;
@@ -34,11 +31,17 @@ void Weapon::setVy(int val) {
 void Weapon::setNum(int val){
     num = val;
 }
+void Weapon::setAdd(int val){
+    add = val;
+}
+void Weapon::setRObj(int x, int y, int w, int h){
+    RObj.x = x; RObj.y = y; RObj.w = w; RObj.h = h;
+}
 void Weapon::display(SDL_Renderer *ren){
-    RArr.x = 32*num;
-    Arr.render(tx, ty, ren, &RArr);
+    RObj.x = add*num;
+    Obj.render(tx, ty, ren, &RObj);
 }
 void Weapon::loadWeapon(SDL_Renderer *ren, std::string path) {
-    if (!Arr.loadFromFile("GameHKI/Map4/Arrow/" + path, ren))
-        std::cout << "Unable to load Arrow";
+    if (!Obj.loadFromFile(path.c_str(), ren))
+        std::cout << "Unable to load Weapon" << '\n';
 }

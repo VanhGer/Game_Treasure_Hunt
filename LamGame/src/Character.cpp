@@ -3,7 +3,7 @@ Character::Character()
 {
     Object();
     for (int i = 0; i < 4; i++){
-        Rdir[i].h = 60; Rdir[i].w = 40;
+        Rdir[i].h = 56; Rdir[i].w = 40;
         Rdir[i].x = 0; Rdir[i].y = 0;
         NumFrames[i] = 0;
     }

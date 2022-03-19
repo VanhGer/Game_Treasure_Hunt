@@ -5,9 +5,7 @@
 #include "Enemy.h"
 #include "Weapon.h"
 #include "TextObject.h"
-#include "Map1.h"
-#include "Map2.h"
-#include "Map4.h"
+#include "Map3.h"
 bool create_GRenderer() {
     GRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                       SDL_RENDERER_PRESENTVSYNC);
@@ -78,20 +76,6 @@ bool loadFont(){
 bool loadMedia() {
     RMap = {0, 0, 1120, 630};
     return loadFont();
-
-}
-void LoadMap3(){
-   BackGround[3].loadFromFile("GameHKI/Map3/Map33.png", GRenderer);
-}
-void CloseMap3(){}
-void Intro3(){};
-void RunMap3(){
-    LoadMap3();
-    Intro3();
-    SDL_RenderClear(GRenderer);
-    BackGround[3].render(0, 0, GRenderer, NULL);
-    SDL_RenderPresent(GRenderer);
-    SDL_Delay(5000);
 }
 void Loading(){
     LoadObject loading;
@@ -185,7 +169,7 @@ int main(int argc, char* argv[])
             bool Running = true;
             while (Running){
                 if (LoadMainMenu()){
-                    Loading();
+//                    Loading();
 //                    if (! RunMap1(GRenderer, gFont)) {
 //                        SDL_Delay(1000);
 //                        LoadGameOver();
@@ -203,8 +187,8 @@ int main(int argc, char* argv[])
 //                    SDL_Delay(2000);
 //                    CloseMap2();
 //                    Loading();
- //                   RunMap3();
-                      RunMap4(GRenderer, gFont);
+                    RunMap3(GRenderer);
+//                      RunMap4(GRenderer, gFont);
 
                 }
                 else {

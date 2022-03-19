@@ -4,6 +4,7 @@
 #include "Common_Function.h"
 #include "Weapon.h"
 #include "Enemy.h"
+#include "Character.h"
 #include "TextObject.h"
 static TextObject Gametime;
 static Weapon Arrow[4];
@@ -21,7 +22,7 @@ void Enemy_Move();
 void Arrow_Move();
 void Arrow_Shot(int frame, SDL_Renderer *ren);
 bool Check_Explorer(int &lastTimeDamage);
-void Explorer_Move(SDL_Event e);
+void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minX, int maxX, int minY, int maxY);
 void show_game_time(SDL_Renderer *ren, TTF_Font *font);
 void show_Enemy_Killed(SDL_Renderer *ren, TTF_Font *font);
 void show_ExHp(SDL_Renderer *ren, TTF_Font *font);

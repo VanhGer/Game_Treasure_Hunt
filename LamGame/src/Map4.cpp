@@ -209,19 +209,22 @@ bool Check_Explorer(int &lastTimeDamage){
     }
     return true;
 }
-void Explorer_Move(SDL_Event e){
+void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int minX, int maxX){
+    //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';
+    //cout << Explorer.getX() << " b " << Explorer.getY() << '\n';
     if (e.key.keysym.sym == SDLK_UP){
-        Explorer.goUp(0, MainFrames);
+        Explorer.goUp(minY, MainFrames);
     }
     else if (e.key.keysym.sym == SDLK_DOWN){
-        Explorer.goDown(SCREEN_HEIGHT - CharacterH, MainFrames);
+        Explorer.goDown(maxY, MainFrames);
     }
     else if (e.key.keysym.sym == SDLK_LEFT){
-        Explorer.goLeft(0, MainFrames);
+        Explorer.goLeft(minX, MainFrames);
     }
     else if (e.key.keysym.sym == SDLK_RIGHT){
-        Explorer.goRight(SCREEN_WIDTH - CharacterW, MainFrames);
+        Explorer.goRight( maxX, MainFrames);
     }
+    //cout << Explorer.getX() << " a " << Explorer.getY() << '\n';
 }
 void show_game_time(SDL_Renderer *ren, TTF_Font *font){
     Gametime.SetColor(TextObject::WHITE_TEXT);
@@ -299,7 +302,7 @@ bool RunMap4(SDL_Renderer *ren, TTF_Font *font){
             if (e.type == SDL_QUIT)
                 Running  = false;
             else if (e.type == SDL_KEYDOWN){
-                Explorer_Move(e);
+                Explorer_Move(Explorer, e, 0, SCREEN_HEIGHT - CharacterH, 0, SCREEN_WIDTH - CharacterW);
                 if (! EnemySpawn && SDL_GetTicks64() > PlayingTime + 3000){
                     Enemy_Spawn(0, ren);
                     EnemySpawn = true;

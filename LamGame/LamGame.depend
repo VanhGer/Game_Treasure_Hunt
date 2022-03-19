@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1647360885 source:d:\lamgame\main.cpp
+1647484207 source:d:\lamgame\main.cpp
 	"Common_Function.h"
 	"LoadObject.h"
 	"Character.h"
@@ -7,12 +7,11 @@
 	"Enemy.h"
 	"Weapon.h"
 	"TextObject.h"
-	"Map1.h"
-	"Map2.h"
-	"Map4.h"
+	"Map3.h"
 
-1647359055 d:\lamgame\include\common_function.h
+1647621272 d:\lamgame\include\common_function.h
 	<iostream>
+	<fstream>
 	<chrono>
 	<random>
 	<stdio.h>
@@ -32,7 +31,7 @@
 	"Common_Function.h"
 	"Object.h"
 
-1647359290 source:d:\lamgame\src\character.cpp
+1647621315 source:d:\lamgame\src\character.cpp
 	"Character.h"
 
 1645714070 d:\lamgame\include\character.h
@@ -46,7 +45,7 @@
 1645500229 source:d:\lamgame\src\ltexture.cpp
 	"Ltexture.h"
 
-1647359042 source:d:\lamgame\src\maincharacter.cpp
+1647623950 source:d:\lamgame\src\maincharacter.cpp
 	"MainCharacter.h"
 
 1647358962 d:\lamgame\include\maincharacter.h
@@ -91,11 +90,11 @@
 1645545369 source:d:\lamgame\src\object.cpp
 	"Object.h"
 
-1647359379 d:\lamgame\include\weapon.h
+1647509167 d:\lamgame\include\weapon.h
 	<LoadObject.h>
 	<Object.h>
 
-1647359393 source:d:\lamgame\src\weapon.cpp
+1647509756 source:d:\lamgame\src\weapon.cpp
 	"Weapon.h"
 
 1647359317 d:\lamgame\include\enemy.h
@@ -117,13 +116,14 @@
 	<cmath>
 	<SDL.h>
 
-1647361086 source:d:\lamgame\src\map4.cpp
+1647484627 source:d:\lamgame\src\map4.cpp
 	"Map4.h"
 
-1647360906 d:\lamgame\include\map4.h
+1647484549 d:\lamgame\include\map4.h
 	"Common_Function.h"
 	"Weapon.h"
 	"Enemy.h"
+	"Character.h"
 	"TextObject.h"
 
 1646328275 source:d:\lamgame\src\lbutton.cpp
@@ -152,4 +152,13 @@
 	"Common_Function.h"
 	"TextObject.h"
 	"LoadObject.h"
+
+1647681040 d:\lamgame\include\map3.h
+	"Common_Function.h"
+	"TextObject.h"
+	"LoadObject.h"
+	"Map4.h"
+
+1647683378 source:d:\lamgame\src\map3.cpp
+	"Map3.h"
 

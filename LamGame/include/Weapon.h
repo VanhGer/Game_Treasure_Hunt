@@ -16,10 +16,12 @@ class Weapon : public Object
         void setVx(int val);
         void setVy(int val);
         void setNum(int val);
+        void setAdd(int val);
+        void setRObj(int x, int y, int w, int h);
     protected:
-        LoadObject Arr;
-        SDL_Rect RArr;
-        int num;
+        LoadObject Obj;
+        SDL_Rect RObj;
+        int num, add;
         int Vx, Vy;
 
 };
