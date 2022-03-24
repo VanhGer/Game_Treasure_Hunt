@@ -18,10 +18,12 @@ class Weapon : public Object
         void setNum(int val);
         void setAdd(int val);
         void setRObj(int x, int y, int w, int h);
+        void setDamn(int val);
+        int getDamn();
     protected:
         LoadObject Obj;
         SDL_Rect RObj;
-        int num, add;
+        int num, add, damn;
         int Vx, Vy;
 
 };

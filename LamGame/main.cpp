@@ -5,6 +5,8 @@
 #include "Enemy.h"
 #include "Weapon.h"
 #include "TextObject.h"
+#include "Map1.h"
+#include "Map2.h"
 #include "Map3.h"
 bool create_GRenderer() {
     GRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
@@ -167,33 +169,39 @@ int main(int argc, char* argv[])
         }
         else {
             bool Running = true;
-            while (Running){
-                if (LoadMainMenu()){
-//                    Loading();
-//                    if (! RunMap1(GRenderer, gFont)) {
-//                        SDL_Delay(1000);
-//                        LoadGameOver();
-//                        continue;
-//                    }
-//                    SDL_Delay(2000);
-//                    CloseMap1();
-//                    Loading();
-//                    if (! RunMap2(GRenderer, LFont)){
-//                        SDL_Delay(1000);
-//                        LoadGameOver();
-//                        CloseMap2(GRenderer);
-//                        continue;
-//                    }
-//                    SDL_Delay(2000);
-//                    CloseMap2();
-//                    Loading();
-                    RunMap3(GRenderer);
-//                      RunMap4(GRenderer, gFont);
-
-                }
-                else {
-
-                    break;
+            int level = 1;
+            if (LoadMainMenu()){
+                while (Running){
+                    Loading();
+                    if (level == 1){
+                        if (! RunMap1(GRenderer, gFont)) {
+                            SDL_Delay(1000);
+                            LoadGameOver();
+                        }
+                        else level++;
+                        CloseMap1(GRenderer);
+                    }
+                    SDL_Delay(1000);
+                    if (level == 2){
+                        Loading();
+                        if (! RunMap2(GRenderer, LFont)){
+                            SDL_Delay(1000);
+                            LoadGameOver();
+                        }
+                        else level++;
+                        CloseMap2(GRenderer);
+                    }
+                    SDL_Delay(1000);
+                    if (level == 3){
+                        Loading();
+                        if (! RunMap3(GRenderer, LFont)){
+                            SDL_Delay(1000);
+                            LoadGameOver();
+                        }
+                        else level++;
+                        CloseMap3(GRenderer);
+                    }
+                    SDL_Delay(1000);
                 }
                // Loading();
     //            if (RunMap1()){

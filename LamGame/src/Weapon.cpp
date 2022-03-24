@@ -3,7 +3,7 @@
 Weapon::Weapon()
 {
     Object();
-    num = 0;
+    num = 0; damn = 0;
     Vx = 0; Vy = 0;
     tx = 0; ty = 0;
 }
@@ -40,6 +40,12 @@ void Weapon::setRObj(int x, int y, int w, int h){
 void Weapon::display(SDL_Renderer *ren){
     RObj.x = add*num;
     Obj.render(tx, ty, ren, &RObj);
+}
+void Weapon::setDamn(int val){
+    damn = val;
+}
+int Weapon::getDamn(){
+    return damn;
 }
 void Weapon::loadWeapon(SDL_Renderer *ren, std::string path) {
     if (!Obj.loadFromFile(path.c_str(), ren))

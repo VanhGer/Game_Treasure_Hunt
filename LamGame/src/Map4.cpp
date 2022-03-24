@@ -258,7 +258,7 @@ void show_Enemy_Killed(SDL_Renderer *ren, TTF_Font *font){
     NumEK.LoadFromRenderText(font, ren);
     NumEK.RenderText(ren, SCREEN_WIDTH/2, 15);
 }
-void show_ExHp(SDL_Renderer *ren, TTF_Font *font){
+void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font){
     TextObject ExHp;
     ExHp.SetColor(TextObject::RED_TEXT);
     std::string str_hp = "HP : ";
@@ -336,7 +336,7 @@ bool RunMap4(SDL_Renderer *ren, TTF_Font *font){
             }
             show_game_time(ren, font);
             show_Enemy_Killed(ren, font);
-            show_ExHp(ren, font);
+            show_ExHp(Explorer, ren, font);
             tmp = SDL_GetTicks64();
         }
         SDL_RenderPresent(ren);

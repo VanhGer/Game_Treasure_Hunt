@@ -17,10 +17,10 @@ void MainCharacter:: clean(){
 void MainCharacter:: loadCharacter(SDL_Renderer * ren) {
     if (!Dir[0].loadFromFile("GameHKI/Map4/Explorer/up1.png", ren))
         std::cout << "Unable to load Character" << '\n';
-    if (!Dir[1].loadFromFile("GameHKI/Map4/Explorer/down.png", ren))
+    if (!Dir[1].loadFromFile("GameHKI/Map4/Explorer/down1.png", ren))
         std::cout << "Unable to load Character" << '\n';
-    if (!Dir[2].loadFromFile("GameHKI/Map4/Explorer/left.png", ren))
+    if (!Dir[2].loadFromFile("GameHKI/Map4/Explorer/left1.png", ren))
         std::cout << "Unable to load Character" << '\n';
-    if (!Dir[3].loadFromFile("GameHKI/Map4/Explorer/right.png", ren))
+    if (!Dir[3].loadFromFile("GameHKI/Map4/Explorer/right1.png", ren))
         std::cout << "Unable to load Character" << '\n';
 }

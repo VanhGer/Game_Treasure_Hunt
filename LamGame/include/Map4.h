@@ -25,7 +25,7 @@ bool Check_Explorer(int &lastTimeDamage);
 void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minX, int maxX, int minY, int maxY);
 void show_game_time(SDL_Renderer *ren, TTF_Font *font);
 void show_Enemy_Killed(SDL_Renderer *ren, TTF_Font *font);
-void show_ExHp(SDL_Renderer *ren, TTF_Font *font);
+void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font);
 void LoadMap4(SDL_Renderer *ren);
 bool RunMap4(SDL_Renderer *ren, TTF_Font *font);
 #endif // MAP4_H
