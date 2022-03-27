@@ -52,6 +52,7 @@ static LoadObject BackGround[5], mainp,  result[2];
 static SDL_Surface *WindowSurface = NULL;
 static SDL_Window *window = NULL;
 static SDL_Renderer* GRenderer = NULL;
+static bool RunGame = true;
 static piii type[] = {mp(15,mp(0,0)), mp(20, mp(0, 0)), mp(20, mp(10, 0)), mp(0,mp(20, 0)), mp(0,mp(20, 5)),
 mp(0, mp(20, 5)), mp(10, mp(20, 10)),mp(30, mp(10, 0)), mp(30, mp(10, 10)), mp(20, mp(20, 20))};
 void logSDLError(std::ostream& os, const std::string &msg, bool fatal);

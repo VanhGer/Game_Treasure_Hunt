@@ -209,23 +209,6 @@ bool Check_Explorer(int &lastTimeDamage){
     }
     return true;
 }
-void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int minX, int maxX){
-    //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';
-    //cout << Explorer.getX() << " b " << Explorer.getY() << '\n';
-    if (e.key.keysym.sym == SDLK_UP){
-        Explorer.goUp(minY, MainFrames);
-    }
-    else if (e.key.keysym.sym == SDLK_DOWN){
-        Explorer.goDown(maxY, MainFrames);
-    }
-    else if (e.key.keysym.sym == SDLK_LEFT){
-        Explorer.goLeft(minX, MainFrames);
-    }
-    else if (e.key.keysym.sym == SDLK_RIGHT){
-        Explorer.goRight( maxX, MainFrames);
-    }
-    //cout << Explorer.getX() << " a " << Explorer.getY() << '\n';
-}
 void show_game_time(SDL_Renderer *ren, TTF_Font *font){
     Gametime.SetColor(TextObject::WHITE_TEXT);
     //Show game time
@@ -258,16 +241,6 @@ void show_Enemy_Killed(SDL_Renderer *ren, TTF_Font *font){
     NumEK.LoadFromRenderText(font, ren);
     NumEK.RenderText(ren, SCREEN_WIDTH/2, 15);
 }
-void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font){
-    TextObject ExHp;
-    ExHp.SetColor(TextObject::RED_TEXT);
-    std::string str_hp = "HP : ";
-    std::string str_num = std::to_string(Explorer.getHp());
-    str_hp += str_num;
-    ExHp.setText(str_hp);
-    ExHp.LoadFromRenderText(font, ren);
-    ExHp.RenderText(ren, 200, 15);
-}
 void LoadMap4(SDL_Renderer *ren){
     BackGround[4].loadFromFile("GameHKI/Map4/map4.png", ren);
     // load MainCharacter
@@ -276,9 +249,20 @@ void LoadMap4(SDL_Renderer *ren){
     Explorer.setHp(MainHp);
     loadArrow(ren);
 }
-bool RunMap4(SDL_Renderer *ren, TTF_Font *font){
-    LoadMap4(ren);
+void CloseMap4(SDL_Renderer *ren){
+    BackGround[4].free();
+    Explorer.clean();
+    for (int i = 0; i < 4; i++)
+        Arrow[i].clean();
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 100; j++)
+            E[i][j].clean();
+    EnemyList.clear();
+    Gametime.Free();
 
+}
+bool RunMap4(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
+    LoadMap4(ren);
     SDL_Event e;
     bool EnemySpawn = false, EnemyMove = false;
     Explorer.setX(SCREEN_WIDTH/2);

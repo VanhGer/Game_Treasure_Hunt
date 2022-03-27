@@ -9,7 +9,7 @@ static SDL_Point pos[3];
 static SDL_Rect OTT[3], RNumber;
 void LoadMap1(SDL_Renderer *GRenderer);
 void CloseMap1(SDL_Renderer *GRenderer);
-void Intro1(SDL_Renderer *GRenderer);
-bool RunMap1(SDL_Renderer *GRenderer, TTF_Font *font);
+void Intro1(SDL_Renderer *GRenderer, bool &RunGame);
+bool RunMap1(SDL_Renderer *GRenderer, TTF_Font *font, bool &RunGame);
 
 #endif // MAP1_H

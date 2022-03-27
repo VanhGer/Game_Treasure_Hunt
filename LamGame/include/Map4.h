@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Character.h"
 #include "TextObject.h"
+#include "Map3.h"
 static TextObject Gametime;
 static Weapon Arrow[4];
 static Enemy E[3][100];
@@ -22,10 +23,9 @@ void Enemy_Move();
 void Arrow_Move();
 void Arrow_Shot(int frame, SDL_Renderer *ren);
 bool Check_Explorer(int &lastTimeDamage);
-void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minX, int maxX, int minY, int maxY);
 void show_game_time(SDL_Renderer *ren, TTF_Font *font);
 void show_Enemy_Killed(SDL_Renderer *ren, TTF_Font *font);
-void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font);
 void LoadMap4(SDL_Renderer *ren);
-bool RunMap4(SDL_Renderer *ren, TTF_Font *font);
+void CloseMap4(SDL_Renderer *ren);
+bool RunMap4(SDL_Renderer *ren, TTF_Font *font, bool &RunGame);
 #endif // MAP4_H

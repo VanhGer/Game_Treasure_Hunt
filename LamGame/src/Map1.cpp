@@ -28,7 +28,7 @@ void CloseMap1(SDL_Renderer *ren){
     result[0].free(); result[1].free();
     showNum.Free();
 }
-void Intro1(SDL_Renderer *ren){
+void Intro1(SDL_Renderer *ren, bool &RunGame){
     LoadObject intro1;
     intro1.loadFromFile("GameHKI/Intro/intro1.png", ren);
     SDL_Event e; bool Running = true;
@@ -37,6 +37,7 @@ void Intro1(SDL_Renderer *ren){
             //User requests quit
             if( e.type == SDL_QUIT ){
                 Running = false;
+                RunGame = false;
             }
             //Handle button events
             if (e.type == SDL_MOUSEBUTTONDOWN)
@@ -48,9 +49,13 @@ void Intro1(SDL_Renderer *ren){
     }
     intro1.free();
 }
-bool RunMap1(SDL_Renderer *ren, TTF_Font *font){
+bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap1(ren);
-    Intro1(ren);
+    Intro1(ren, RunGame);
+    if (! RunGame) {
+        CloseMap1(ren);
+        return 0;
+    }
     Uint64 StartTime = SDL_GetTicks64(), cnttime, showchoice;
     int click = 3, Running = 1, x,y, Pchoice = -1, COMchoice;
     int NumGames = 1, NumWins = 0;
@@ -71,6 +76,7 @@ bool RunMap1(SDL_Renderer *ren, TTF_Font *font){
             //User requests quit
             if( e.type == SDL_QUIT ){
                 Running = false;
+                RunGame = false;
             }
             //Handle button events
             if(click == 3 && (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)){
@@ -90,6 +96,7 @@ bool RunMap1(SDL_Renderer *ren, TTF_Font *font){
                 }
             }
         }
+        if (!Running) break;
         if (Pchoice != -1){
             if (! donecount){
                 if (SDL_GetTicks64() - cnttime >= 1000 && click != 3) {

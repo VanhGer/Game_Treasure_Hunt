@@ -8,6 +8,7 @@
 #include "Map1.h"
 #include "Map2.h"
 #include "Map3.h"
+#include "Map4.h"
 bool create_GRenderer() {
     GRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                       SDL_RENDERER_PRESENTVSYNC);
@@ -88,7 +89,7 @@ void Loading(){
     int cur = 0;
     string str_val;
     while (cur != 100){
-        if (SDL_GetTicks64() - stime >= 20){
+        if (SDL_GetTicks64() - stime >= 15){
             SDL_RenderClear(GRenderer);
             loading.render(0, 0, GRenderer, NULL);
             cur++;
@@ -169,40 +170,55 @@ int main(int argc, char* argv[])
         }
         else {
             bool Running = true;
-            int level = 1;
+            int level = 4;
             if (LoadMainMenu()){
-                while (Running){
-                    Loading();
-                    if (level == 1){
-                        if (! RunMap1(GRenderer, gFont)) {
-                            SDL_Delay(1000);
-                            LoadGameOver();
-                        }
-                        else level++;
-                        CloseMap1(GRenderer);
-                    }
-                    SDL_Delay(1000);
-                    if (level == 2){
+                while (Running && level <= 6){
+//                    if (level == 1){
+//                        Loading();
+//                        if (! RunMap1(GRenderer, gFont, RunGame)) {
+//                            if (RunGame) LoadGameOver();
+//                        }
+//                        else level++;
+//                        CloseMap1(GRenderer);
+//                        if (! RunGame) Running = false;
+//                        SDL_Delay(1000);
+//                    }
+//                    else
+//                        if (level == 2){
+//                        Loading();
+//                        if (! RunMap2(GRenderer, LFont, RunGame)){
+//                            if (RunGame) LoadGameOver();
+//                        }
+//                        else level++;
+//                        CloseMap2(GRenderer);
+//                        if (! RunGame) Running = false;
+//                        SDL_Delay(1000);
+//                    }
+////                    else
+//                        if (level == 3){
+//                        Loading();
+//                        if (! RunMap3(GRenderer, LFont, RunGame)){
+//                            if (RunGame) LoadGameOver();
+//                        }
+//                        else level++;
+//                        CloseMap3(GRenderer);
+//                        if (! RunGame) Running = false;
+//                        SDL_Delay(1000);
+//                    }
+//                       else
+                        if (level == 4){
                         Loading();
-                        if (! RunMap2(GRenderer, LFont)){
-                            SDL_Delay(1000);
-                            LoadGameOver();
+                        if (! RunMap4(GRenderer, LFont, RunGame)){
+                            if (RunGame) LoadGameOver();
                         }
                         else level++;
-                        CloseMap2(GRenderer);
+                        CloseMap4(GRenderer);
+                        if (! RunGame) Running = false;
+                        SDL_Delay(1000);
                     }
-                    SDL_Delay(1000);
-                    if (level == 3){
-                        Loading();
-                        if (! RunMap3(GRenderer, LFont)){
-                            SDL_Delay(1000);
-                            LoadGameOver();
-                        }
-                        else level++;
-                        CloseMap3(GRenderer);
-                    }
-                    SDL_Delay(1000);
+
                 }
+
                // Loading();
     //            if (RunMap1()){
     //                Loading();

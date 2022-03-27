@@ -72,7 +72,7 @@ void CloseMap3(SDL_Renderer *ren){
     for (int i = 1; i <= nlava; i++) lava[i].free();
     Explorer.clean();
 }
-void Intro3(SDL_Renderer *ren){
+void Intro3(SDL_Renderer *ren, bool &RunGame){
     LoadObject intro1;
     intro1.loadFromFile("GameHKI/Intro/intro3.png", ren);
     SDL_Event e; bool Running = true;
@@ -81,6 +81,7 @@ void Intro3(SDL_Renderer *ren){
             //User requests quit
             if( e.type == SDL_QUIT ){
                 Running = false;
+                RunGame = false;
             }
             //Handle button events
             if (e.type == SDL_MOUSEBUTTONDOWN)
@@ -206,9 +207,37 @@ void CheckCollision3(MainCharacter &Explorer, Uint64 &t){
         }
     }
 }
-bool RunMap3(SDL_Renderer *ren, TTF_Font *font){
+void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font){
+    TextObject ExHp;
+    ExHp.SetColor(TextObject::RED_TEXT);
+    std::string str_hp = "HP : ";
+    std::string str_num = std::to_string(Explorer.getHp());
+    str_hp += str_num;
+    ExHp.setText(str_hp);
+    ExHp.LoadFromRenderText(font, ren);
+    ExHp.RenderText(ren, 200, 15);
+}
+void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int minX, int maxX){
+    //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';
+    //cout << Explorer.getX() << " b " << Explorer.getY() << '\n';
+    if (e.key.keysym.sym == SDLK_UP){
+        Explorer.goUp(minY, MainFrames);
+    }
+    else if (e.key.keysym.sym == SDLK_DOWN){
+        Explorer.goDown(maxY, MainFrames);
+    }
+    else if (e.key.keysym.sym == SDLK_LEFT){
+        Explorer.goLeft(minX, MainFrames);
+    }
+    else if (e.key.keysym.sym == SDLK_RIGHT){
+        Explorer.goRight( maxX, MainFrames);
+    }
+    //cout << Explorer.getX() << " a " << Explorer.getY() << '\n';
+}
+bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap3(ren);
-    Intro3(ren);
+    Intro3(ren, RunGame);
+    if (!RunGame) {CloseMap3(ren); return 0;}
     SDL_Event e;
     int cury = 5900, curframe = 0, sframe = 0, ntimes = 0, q1, q2;
     bool Running = true, dead = false, Ost_start = false, loadOst = true, win = false;
@@ -229,7 +258,9 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font){
             }
             while (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
-                    Running = false;
+                    RunGame = false;
+                    CloseMap3(ren);
+                    return 0;
                 }
                 else if (e.type == SDL_KEYDOWN) {
                     Explorer.setY(cury);
@@ -342,7 +373,10 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font){
             congra.render(550, 40, ren, NULL);
             while (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
-                    Running = false;
+                    RunGame = false;
+                    congra.free();
+                    CloseMap3(ren);
+                    return 0;
                 }
                 else if (e.type == SDL_MOUSEBUTTONDOWN) {
                     Running = false;
@@ -352,6 +386,7 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font){
             fpstime = SDL_GetTicks64();
         }
     }
+
     CloseMap3(ren);
     return win;
 }
