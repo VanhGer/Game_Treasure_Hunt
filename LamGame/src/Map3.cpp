@@ -93,7 +93,7 @@ void Intro3(SDL_Renderer *ren, bool &RunGame){
     }
     intro1.free();
 }
-void ChangeRMap(int val){
+void ChangeRMap3(int val){
     int ny = max(0, val - 315 + CharacterH);
     ny = min(ny, 5370);
     RMap3.y = ny;
@@ -221,16 +221,16 @@ void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int
     //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';
     //cout << Explorer.getX() << " b " << Explorer.getY() << '\n';
     if (e.key.keysym.sym == SDLK_UP){
-        Explorer.goUp(minY, MainFrames);
+        Explorer.goUp(minY, MainFrames, 0);
     }
     else if (e.key.keysym.sym == SDLK_DOWN){
-        Explorer.goDown(maxY, MainFrames);
+        Explorer.goDown(maxY, MainFrames, 1);
     }
     else if (e.key.keysym.sym == SDLK_LEFT){
-        Explorer.goLeft(minX, MainFrames);
+        Explorer.goLeft(minX, MainFrames, 2);
     }
     else if (e.key.keysym.sym == SDLK_RIGHT){
-        Explorer.goRight( maxX, MainFrames);
+        Explorer.goRight( maxX, MainFrames, 3);
     }
     //cout << Explorer.getX() << " a " << Explorer.getY() << '\n';
 }
@@ -266,7 +266,7 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
                     Explorer.setY(cury);
                     Explorer_Move(Explorer, e, 0, 6000 - CharacterH, 336, 797 - CharacterW);
                     cury = Explorer.getY();
-                    ChangeRMap(cury);
+                    ChangeRMap3(cury);
                 }
             }
             if (cury <= 300) loadOst = false;

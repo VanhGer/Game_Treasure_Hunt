@@ -20,10 +20,10 @@ class Character : public Object{
         int getNum();
         void setNumFrames(int val);
         void changeNumFrames(int Num);
-        void goUp(int Lim, int Num);
-        void goDown(int Lim, int Num);
-        void goLeft(int Lim, int Num);
-        void goRight(int Lim, int Num);
+        void goUp(int Lim, int Num, int val);
+        void goDown(int Lim, int Num, int val);
+        void goLeft(int Lim, int Num, int val);
+        void goRight(int Lim, int Num, int val);
         void display(SDL_Renderer *ren);
 };
 

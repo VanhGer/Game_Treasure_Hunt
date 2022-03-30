@@ -21,6 +21,7 @@ bool CheckInside(SDL_Rect R, int x, int y, int h, int w);
 bool CheckIntersect(int x, int y, int w, int h, int x1, int y1, int w1, int h1);
 void Spawn_Ost(SDL_Renderer *ren, int n);
 void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font);
+void ChangeRMap3(int val);
 void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minX, int maxX, int minY, int maxY);
 void CheckCollision3();
 bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame);

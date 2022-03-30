@@ -41,23 +41,23 @@ void Character:: changeNumFrames(int Num){
     NumFrames[id]++;
     NumFrames[id] %= Num;
 }
-void Character:: goUp(int Lim, int Num){
-    id = 0;
+void Character:: goUp(int Lim, int Num, int val){
+    id = val;
     changeNumFrames(Num);
     ty = std::max(Lim, ty - Speed);
 }
-void Character:: goDown(int Lim, int Num){
-    id = 1;
+void Character:: goDown(int Lim, int Num, int val){
+    id = val;
     changeNumFrames(Num);
     ty = std::min(Lim, ty +  Speed);
 }
-void Character:: goLeft(int Lim, int Num){
-    id = 2;
+void Character:: goLeft(int Lim, int Num, int val){
+    id = val;
     changeNumFrames(Num);
     tx = std::max(Lim, tx -  Speed);
 }
-void Character:: goRight(int Lim, int Num){
-    id = 3;
+void Character:: goRight(int Lim, int Num, int val){
+    id = val;
     changeNumFrames(Num);
     tx = std::min(Lim, tx +  Speed);
 }

@@ -11,10 +11,16 @@ class Enemy: public Character
         ~Enemy();
         void clean();
         void loadCharacter(SDL_Renderer *ren, std::string path);
-        int getLastTimeMove();
-        void setLastTimeMove(int val);
+        Uint64 getSpawnTime();
+        void setSpawnTime(Uint64 val);
+        void setSpawn(bool val);
+        bool GetSpawn();
+        void setTypes(int val);
+        int GetTypes();
     protected:
-        int LastTimeMove;
+        Uint64 SpawnTime;
+        bool Spawn;
+        int Types;
 
 };
 
