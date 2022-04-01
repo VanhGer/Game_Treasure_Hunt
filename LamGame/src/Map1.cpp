@@ -28,9 +28,9 @@ void CloseMap1(SDL_Renderer *ren){
     result[0].free(); result[1].free();
     showNum.Free();
 }
-void Intro1(SDL_Renderer *ren, bool &RunGame){
-    LoadObject intro1;
-    intro1.loadFromFile("GameHKI/Intro/intro1.png", ren);
+void Intro(SDL_Renderer *ren, bool &RunGame, int id){
+    LoadObject intro;
+    intro.loadFromFile("GameHKI/Intro/intro" +std::to_string(id) + ".png", ren);
     SDL_Event e; bool Running = true;
     while (Running) {
         while( SDL_PollEvent( &e ) != 0 ){
@@ -43,15 +43,14 @@ void Intro1(SDL_Renderer *ren, bool &RunGame){
             if (e.type == SDL_MOUSEBUTTONDOWN)
                 Running = false;
         }
-        BackGround[1].render(0, 0, ren, NULL);
-        intro1.render(0, 0, ren, NULL);
+        intro.render(0, 0, ren, NULL);
         SDL_RenderPresent(ren);
     }
-    intro1.free();
+    intro.free();
 }
 bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap1(ren);
-    Intro1(ren, RunGame);
+    Intro(ren, RunGame, 1);
     if (! RunGame) {
         CloseMap1(ren);
         return 0;

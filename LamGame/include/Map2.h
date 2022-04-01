@@ -4,12 +4,12 @@
 #include "Common_Function.h"
 #include "TextObject.h"
 #include "LoadObject.h"
+#include "Map1.h"
 static LoadObject Sphinx, Talk, guess, button, blank;
 static SDL_Rect Rtalk, Rguess, Rbutton, Rblank;
 static TextObject TextGuess;
 void LoadMap2(SDL_Renderer *ren);
 void CloseMap2(SDL_Renderer *ren);
-void Intro2(SDL_Renderer *ren, bool &RunGame);
 int to_num(string s);
 bool RunMap2(SDL_Renderer *ren, TTF_Font *font, bool &RunGame);
 

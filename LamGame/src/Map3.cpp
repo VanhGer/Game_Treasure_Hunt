@@ -43,6 +43,8 @@ void LoadObstacle(SDL_Renderer *ren){
 void LoadMap3(SDL_Renderer *ren){
     nlava = 0;
     LoadObstacle(ren);
+    Blood.loadFromFile("GameHKI/BloodBar/blood.png", ren);
+    Bar.loadFromFile("GameHKI/BloodBar/empty.png", ren);
     glow.loadFromFile("GameHKI/Map3/glow.png", ren);
     arr.loadFromFile("GameHKI/Map3/arr.png", ren);
     youdied.loadFromFile("GameHKI/Map3/died.png", ren);
@@ -64,34 +66,13 @@ void LoadMap3(SDL_Renderer *ren){
 }
 void CloseMap3(SDL_Renderer *ren){
     BackGround[3].free();
-    youdied.free(); die.free();
+    youdied.free(); die.free(); Blood.free(); Bar.free(); glow.free(); arr.free();
     for (int i = 0; i < 10; i++) {
         fire[i].clean(); eball[i].clean();
     }
     for (int i = 1; i <= nsnake; i++) snake[i].clean();
     for (int i = 1; i <= nlava; i++) lava[i].free();
     Explorer.clean();
-}
-void Intro3(SDL_Renderer *ren, bool &RunGame){
-    LoadObject intro1;
-    intro1.loadFromFile("GameHKI/Intro/intro3.png", ren);
-    SDL_Event e; bool Running = true;
-    while (Running) {
-        while(SDL_PollEvent( &e ) != 0 ){
-            //User requests quit
-            if( e.type == SDL_QUIT ){
-                Running = false;
-                RunGame = false;
-            }
-            //Handle button events
-            if (e.type == SDL_MOUSEBUTTONDOWN)
-                Running = false;
-        }
-        BackGround[3].render(0, 0, ren, &RMap3);
-        intro1.render(0, 0, ren, NULL);
-        SDL_RenderPresent(ren);
-    }
-    intro1.free();
 }
 void ChangeRMap3(int val){
     int ny = max(0, val - 315 + CharacterH);
@@ -207,15 +188,30 @@ void CheckCollision3(MainCharacter &Explorer, Uint64 &t){
         }
     }
 }
-void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font){
+void show_BloodBar(int x, int y, int Hp, SDL_Renderer *ren, LoadObject &Bar, LoadObject &Blood){
+    Hp = max(Hp, 0);
+    SDL_Rect BRect;
+    BRect.x = 0; BRect.y = 0; BRect.h = 10; BRect.w = 50;
+    Bar.render(x, y, ren, &BRect);
+    BRect.w = Hp * 2;
+    Blood.render(x, y, ren, &BRect);
+}
+void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font, int x, int y){
     TextObject ExHp;
-    ExHp.SetColor(TextObject::RED_TEXT);
-    std::string str_hp = "HP : ";
-    std::string str_num = std::to_string(Explorer.getHp());
+    ExHp.SetColor(TextObject::BLACK_TEXT);
+    std::string str_hp = ": ";
+    std::string str_num = std::to_string(max(0, Explorer.getHp()));
     str_hp += str_num;
     ExHp.setText(str_hp);
     ExHp.LoadFromRenderText(font, ren);
-    ExHp.RenderText(ren, 200, 15);
+    ExHp.RenderText(ren, x, y);
+    ExHp.Free();
+}
+void show_frame(SDL_Renderer *ren, TTF_Font *font, int id){
+    LoadObject Frame;
+    Frame.loadFromFile("GameHKI/Frame/frame" + std::to_string(id) + ".png", ren);
+    Frame.render(0, 0, ren, NULL);
+    Frame.free();
 }
 void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int minX, int maxX){
     //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';
@@ -236,7 +232,7 @@ void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int
 }
 bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap3(ren);
-    Intro3(ren, RunGame);
+    Intro(ren, RunGame, 3);
     if (!RunGame) {CloseMap3(ren); return 0;}
     SDL_Event e;
     int cury = 5900, curframe = 0, sframe = 0, ntimes = 0, q1, q2;
@@ -346,7 +342,7 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
             else {
                 die.render(Explorer.getX(), Explorer.getY(), ren, NULL);
             }
-            show_ExHp(Explorer, ren, font);
+           // show_ExHp(Explorer, ren, font);
             if (dead){
                 youdied.render(450, 200, ren, NULL);
             }
@@ -365,9 +361,9 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
         if (SDL_GetTicks64() - fpstime >= 2){
             BackGround[3].render(0, 0, ren, &RMap3);
            // if (SDL_GetTicks64() - sptime >= 70){
-                curframe = 1 - curframe;
-                Rarr.x = curframe * 500;
-                sptime = SDL_GetTicks64();
+            curframe = 1 - curframe;
+            Rarr.x = curframe * 500;
+            sptime = SDL_GetTicks64();
           //  }
             arr.render(50, 40, ren, &Rarr);
             congra.render(550, 40, ren, NULL);
@@ -386,6 +382,7 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
             fpstime = SDL_GetTicks64();
         }
     }
+    congra.free();
 
     CloseMap3(ren);
     return win;

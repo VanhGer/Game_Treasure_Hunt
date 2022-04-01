@@ -24,27 +24,6 @@ void CloseMap2(SDL_Renderer *ren){
     result[0].free(); result[1].free(); button.free(); blank.free();
     guess.free(); TextGuess.Free();
 }
-void Intro2(SDL_Renderer *ren, bool &RunGame){
-    LoadObject intro1;
-    intro1.loadFromFile("GameHKI/Intro/intro2.png", ren);
-    SDL_Event e; bool Running = true;
-    while (Running) {
-        while( SDL_PollEvent( &e ) != 0 ){
-            //User requests quit
-            if( e.type == SDL_QUIT ){
-                Running = false;
-                RunGame = false;
-            }
-            //Handle button events
-            if (e.type == SDL_MOUSEBUTTONDOWN)
-                Running = false;
-        }
-        BackGround[2].render(0, 0, ren, NULL);
-        intro1.render(0, 0, ren, NULL);
-        SDL_RenderPresent(ren);
-    }
-    intro1.free();
-}
 int to_num(string s){
     int p = 0;
     for (int i = 0; i < s.size(); i++)
@@ -53,7 +32,7 @@ int to_num(string s){
 }
 bool RunMap2(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap2(ren);
-    Intro2(ren, RunGame);
+    Intro(ren, RunGame, 2);
     if (! RunGame) {
         CloseMap2(ren);
         return 0;
