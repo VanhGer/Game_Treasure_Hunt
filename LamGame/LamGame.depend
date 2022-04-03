@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1648353321 source:d:\lamgame\main.cpp
+1649004377 source:d:\lamgame\main.cpp
 	"Common_Function.h"
 	"LoadObject.h"
 	"Character.h"
@@ -11,6 +11,7 @@
 	"Map2.h"
 	"Map3.h"
 	"Map4.h"
+	"Map5.h"
 
 1648810209 d:\lamgame\include\common_function.h
 	<iostream>
@@ -48,7 +49,7 @@
 1645500229 source:d:\lamgame\src\ltexture.cpp
 	"Ltexture.h"
 
-1647832851 source:d:\lamgame\src\maincharacter.cpp
+1648868649 source:d:\lamgame\src\maincharacter.cpp
 	"MainCharacter.h"
 
 1647358962 d:\lamgame\include\maincharacter.h
@@ -119,10 +120,10 @@
 	<cmath>
 	<SDL.h>
 
-1648832476 source:d:\lamgame\src\map4.cpp
+1648866367 source:d:\lamgame\src\map4.cpp
 	"Map4.h"
 
-1648832475 d:\lamgame\include\map4.h
+1648833085 d:\lamgame\include\map4.h
 	"Common_Function.h"
 	"Weapon.h"
 	"Enemy.h"
@@ -141,12 +142,13 @@
 	<stdio.h>
 	<string>
 
-1648807212 d:\lamgame\include\map1.h
+1649004268 d:\lamgame\include\map1.h
 	"Common_Function.h"
 	"TextObject.h"
 	"LoadObject.h"
+	"MainCharacter.h"
 
-1648809004 source:d:\lamgame\src\map1.cpp
+1649004956 source:d:\lamgame\src\map1.cpp
 	"Map1.h"
 
 1648807243 source:d:\lamgame\src\map2.cpp
@@ -158,13 +160,20 @@
 	"LoadObject.h"
 	"Map1.h"
 
-1648807340 d:\lamgame\include\map3.h
+1649003446 d:\lamgame\include\map3.h
 	"Common_Function.h"
 	"TextObject.h"
 	"LoadObject.h"
 	"Weapon.h"
 	"Map1.h"
 
-1648807305 source:d:\lamgame\src\map3.cpp
+1649003467 source:d:\lamgame\src\map3.cpp
 	"Map3.h"
+
+1648979699 source:d:\lamgame\src\map5.cpp
+	"Map5.h"
+
+1648978884 d:\lamgame\include\map5.h
+	<Common_Function.h>
+	<LoadObject.h>
 

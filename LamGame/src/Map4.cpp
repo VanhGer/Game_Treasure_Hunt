@@ -113,9 +113,9 @@ void Change_Arrow(SDL_Renderer *ren) {
     }
     else {
         if (numEnemyKilled - 30 < 25) return;
-        if (numEnemyKilled - 30 >= 130) idArrow = 5;
-        if (numEnemyKilled - 30 >= 90) idArrow = 4;
-        else if (numEnemyKilled - 30 >= 55) idArrow = 3;
+        if (numEnemyKilled - 30 >= 170) idArrow = 5;
+        else if (numEnemyKilled - 30 >= 110) idArrow = 4;
+        else if (numEnemyKilled - 30 >= 60) idArrow = 3;
         else if (numEnemyKilled - 30 >= 25) idArrow = 2;
         loadArrow(ren);
      }

@@ -9,6 +9,7 @@
 #include "Map2.h"
 #include "Map3.h"
 #include "Map4.h"
+#include "Map5.h"
 bool create_GRenderer() {
     GRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                       SDL_RENDERER_PRESENTVSYNC);
@@ -147,14 +148,37 @@ bool LoadMainMenu(){
     BackGround[0].free(); Start.free(); Quit.free();
     return (inside == 1);
 }
-void LoadGameOver(){
-    LoadObject Gover;
+bool LoadGameOver(){
+    LoadObject Gover, choose;
     SDL_RenderClear(GRenderer);
+    choose.loadFromFile("GameHKI/choose.png", GRenderer);
     Gover.loadFromFile("GameHKI/GameOver.png", GRenderer);
-    Gover.render(0, 0, GRenderer, NULL);
-    SDL_RenderPresent(GRenderer);
-    SDL_Delay(1000);
+    SDL_Event e;
+    int cur = -1; bool Running = true;
+    int x, y;
+    while (Running) {
+        while(SDL_PollEvent(&e) != 0){
+            if (e.type == SDL_QUIT){
+                choose.free(); Gover.free(); return false;
+            }
+            else if (e.type == SDL_MOUSEBUTTONDOWN){
+                SDL_GetMouseState(&x, &y);
+                if (380 <= y && y <= 420){
+                    if (325 <= x && x <= 430) cur = 0;
+                    if (685 <= x && x <= 765) cur = 1;
+                }
+            }
+        }
+        if (cur != -1) Running = false;
+        Gover.render(0, 0, GRenderer, NULL);
+        if (cur != -1) choose.render(330 + cur * 345, 430, GRenderer, NULL);
+        SDL_RenderPresent(GRenderer);
+        if (! Running) SDL_Delay(1500);
+
+    }
     Gover.free();
+    choose.free();
+    return 1 - cur;
 }
 int main(int argc, char* argv[])
 {
@@ -170,19 +194,19 @@ int main(int argc, char* argv[])
         }
         else {
             bool Running = true;
-            int level = 4;
+            int level = 1;
             if (LoadMainMenu()){
                 while (Running && level <= 6){
-//                    if (level == 1){
-//                        Loading();
-//                        if (! RunMap1(GRenderer, gFont, RunGame)) {
-//                            if (RunGame) LoadGameOver();
-//                        }
-//                        else level++;
-//                        CloseMap1(GRenderer);
-//                        if (! RunGame) Running = false;
-//                        SDL_Delay(1000);
-//                    }
+                    if (level == 1){
+                        Loading();
+                        if (! RunMap1(GRenderer, LFont, RunGame)) {
+                            if (RunGame) LoadGameOver();
+                        }
+                        else level++;
+                        CloseMap1(GRenderer);
+                        if (! RunGame) Running = false;
+                        SDL_Delay(1000);
+                    }
 //                    else
 //                        if (level == 2){
 //                        Loading();
@@ -206,15 +230,20 @@ int main(int argc, char* argv[])
 //                        SDL_Delay(1000);
 //                    }
 //                       else
-                        if (level == 4){
-                        Loading();
-                        if (! RunMap4(GRenderer, LFont, RunGame)){
-                            if (RunGame) LoadGameOver();
+//                        if (level == 4){
+//                        Loading();
+//                        if (! RunMap4(GRenderer, LFont, RunGame)){
+//                            if (RunGame) LoadGameOver();
+//                        }
+//                        else level++;
+//                        CloseMap4(GRenderer);
+//                        if (! RunGame) Running = false;
+//                        SDL_Delay(1000);
+                        if (level == 5) {
+                            Loading();
+                            //RunMap5(GRenderer, RunGame);
+                            LoadGameOver();
                         }
-                        else level++;
-                        CloseMap4(GRenderer);
-                        if (! RunGame) Running = false;
-                        SDL_Delay(1000);
                     }
 
                 }
@@ -233,7 +262,7 @@ int main(int argc, char* argv[])
 //                BackGround4.render(0, 0, GRenderer, &Map4);
 //                SDL_RenderPresent(GRenderer);
 //                SDL_Delay(5000);
-            }
+//            }
         }
     }
     return 0;

@@ -57,8 +57,8 @@ void LoadMap3(SDL_Renderer *ren){
         fire[i].setRObj(0, 0, 35, 35); eball[i].setRObj(0, 0, 35, 35);
     }
     Explorer.loadCharacter(ren);
-    Explorer.setSpeed(5);
-    Explorer.setHp(25000);
+    Explorer.setSpeed(MainSpeed);
+    Explorer.setHp(MainHp); Explorer.setNumFrames(0);
     Explorer.setX(SCREEN_WIDTH/2);
     Explorer.setY(530);
     RMap3 = {0, 5370, 1120, 630};
@@ -69,8 +69,9 @@ void CloseMap3(SDL_Renderer *ren){
     youdied.free(); die.free(); Blood.free(); Bar.free(); glow.free(); arr.free();
     for (int i = 0; i < 10; i++) {
         fire[i].clean(); eball[i].clean();
+        Fappear[i] = false; Eappear[i] = false;
     }
-    for (int i = 1; i <= nsnake; i++) snake[i].clean();
+    for (int i = 1; i <= nsnake; i++) {snake[i].clean();}
     for (int i = 1; i <= nlava; i++) lava[i].free();
     Explorer.clean();
 }
@@ -207,12 +208,6 @@ void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font, int x
     ExHp.RenderText(ren, x, y);
     ExHp.Free();
 }
-void show_frame(SDL_Renderer *ren, TTF_Font *font, int id){
-    LoadObject Frame;
-    Frame.loadFromFile("GameHKI/Frame/frame" + std::to_string(id) + ".png", ren);
-    Frame.render(0, 0, ren, NULL);
-    Frame.free();
-}
 void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int minX, int maxX){
     //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';
     //cout << Explorer.getX() << " b " << Explorer.getY() << '\n';
@@ -314,7 +309,13 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
                     }
                 }
             }
-
+            if (! dead) {
+                Explorer.display(ren);
+            }
+            else {
+                die.render(Explorer.getX(), Explorer.getY(), ren, NULL);
+            }
+            show_BloodBar(Explorer.getX() - 5, Explorer.getY() + 60, Explorer.getHp(), ren, Bar, Blood);
             int cur = 0;
             for (int i = 1; i <= nsnake; i++){
                 if (! CheckInside(RMap3, snake[i].getX(), snake[i].getY(), 21, 24)) continue;
@@ -338,14 +339,11 @@ bool RunMap3(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
                     fire[i].display(ren); fire[i].setY(cur);
                 }
             }
-            if (! dead) Explorer.display(ren);
-            else {
-                die.render(Explorer.getX(), Explorer.getY(), ren, NULL);
-            }
-           // show_ExHp(Explorer, ren, font);
             if (dead){
                 youdied.render(450, 200, ren, NULL);
             }
+            show_frame(ren, font, 3);
+            show_ExHp(Explorer, ren, font, 80, 20);
             SDL_RenderPresent(ren);
             if (! Running) SDL_Delay(2000);
              fpstime = SDL_GetTicks64();

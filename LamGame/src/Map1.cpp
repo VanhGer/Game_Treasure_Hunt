@@ -1,5 +1,63 @@
 #include "Map1.h"
-
+void show_frame(SDL_Renderer *ren, TTF_Font *font, int id){
+    LoadObject Frame;
+    Frame.loadFromFile("GameHKI/Frame/frame" + std::to_string(id) + ".png", ren);
+    Frame.render(0, 0, ren, NULL);
+    Frame.free();
+}
+void show_num(SDL_Renderer *ren, TTF_Font *font, int a, int b){
+    TextObject num, num2;
+    string str_val = std::to_string(a - b - 1);
+    str_val += " vs ";
+    str_val += std::to_string(b);
+    num.setText(str_val);
+    num.SetColor(TextObject:: BLACK_TEXT);
+    num.LoadFromRenderText(font, ren);
+    num.RenderText(ren, 63, 60);
+    string dstr_val = std::to_string(a);
+    dstr_val += "/5";
+    num2.setText(dstr_val);
+    num2.SetColor(TextObject::BLACK_TEXT);
+    num2.LoadFromRenderText(font, ren);
+    num2.RenderText(ren, 80, 15);
+    num.Free(); num2.Free();
+}
+void Ex_come(MainCharacter &Explorer, SDL_Renderer *ren, bool &RunGame){
+    LoadObject t; t.loadFromFile("GameHKI/Map1/talk.png", ren);
+    bool Running = true, talk = false;
+    Explorer.setX(545); Explorer.setY(590); Explorer.setSpeed(5);
+    SDL_Event e;
+    int cur = 0;
+    SDL_Rect R1; R1.w = 35; R1.h = 50;
+    Uint64 fpstime = SDL_GetTicks64(), movingtime = SDL_GetTicks64();
+    while (Running){
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                RunGame = false;
+                return;
+            }
+        }
+        if (talk) Running = false;
+        if (SDL_GetTicks64() - movingtime >= 50 && ! talk){
+            if (Explorer.getY() != 275) Explorer.goUp(275, MainFrames, 0);
+            else {
+                if (Explorer.getX() != 680) Explorer.goRight(680, MainFrames, 3);
+                else {Explorer.goLeft(670, MainFrames, 2); talk = true; }
+                cur = 1;
+            }
+            movingtime = SDL_GetTicks64();
+        }
+        if (SDL_GetTicks64() - fpstime >= 33){
+            SDL_RenderClear(ren);
+            BackGround[1].render(0, 0, ren, NULL);
+            R1.x = cur * 35; monk.render(415, 275, ren, &R1);
+            Explorer.display(ren);
+            if (talk) t.render(360, 150, ren, NULL);
+            if (! Running) SDL_Delay(1500);
+            SDL_RenderPresent(ren);
+        }
+    }
+}
 void LoadMap1(SDL_Renderer *ren){
     BackGround[1].loadFromFile("GameHKI/Map1/map1.png", ren);
     showNum.SetColor(TextObject::WHITE_TEXT);
@@ -8,7 +66,7 @@ void LoadMap1(SDL_Renderer *ren){
     }
     pos[0] = {240, 20}; pos[1] = {490, 20}; pos[2] = {740, 20};
     RNumber = {0, 0, 80, 148};
-    mainp.loadFromFile("GameHKI/Map1/explorer.png", ren);
+    Explorer.loadCharacter(ren);
     result[0].loadFromFile("GameHKI/Map1/win.png", ren);
     result[1].loadFromFile("GameHKI/Map1/lose.png", ren);
     tg[0].loadFromFile("GameHKI/Map1/1.png", ren);
@@ -26,7 +84,7 @@ void CloseMap1(SDL_Renderer *ren){
     rock.free(); paper.free(); scissors.free(); monk.free(); mainp.free();
     for (int i = 0; i < 3; i++) {tg[i].free(); choice[i].free();}
     result[0].free(); result[1].free();
-    showNum.Free();
+    showNum.Free(); Explorer.clean();
 }
 void Intro(SDL_Renderer *ren, bool &RunGame, int id){
     LoadObject intro;
@@ -51,22 +109,23 @@ void Intro(SDL_Renderer *ren, bool &RunGame, int id){
 bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap1(ren);
     Intro(ren, RunGame, 1);
+    Ex_come(Explorer, ren, RunGame);
     if (! RunGame) {
         CloseMap1(ren);
         return 0;
     }
     Uint64 StartTime = SDL_GetTicks64(), cnttime, showchoice;
+    SDL_Rect R1; R1.w = 35; R1.h = 50; R1.x = 35;
     int click = 3, Running = 1, x,y, Pchoice = -1, COMchoice;
     int NumGames = 1, NumWins = 0;
     bool donecount = true, dowin = true;
     while (Running) {
         if (SDL_GetTicks64() - StartTime <= 30) continue;
-        SDL_RenderClear(ren);
-        SDL_SetRenderDrawColor( ren, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(ren);
         BackGround[1].render(0, 0, ren, NULL);
-        monk.render(0, SCREEN_HEIGHT - 480, ren, NULL);
-        mainp.render(778, SCREEN_HEIGHT - 480, ren, NULL);
+        monk.render(415, 275, ren, &R1);
+        Explorer.display(ren);
         rock.render(pos[0].x, pos[0].y, ren, &OTT[0]);
         paper.render(pos[1].x, pos[1].y, ren, &OTT[1]);
         scissors.render(pos[2].x, pos[2].y, ren, &OTT[2]);
@@ -109,12 +168,12 @@ bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
                         }
                 }
                 if (click != 3)
-                    tg[click].render(520, 260, ren, &RNumber);
+                    tg[click].render(510, 260, ren, &RNumber);
             }
             if (donecount){
-                if (SDL_GetTicks64() - showchoice <= 1500){
-                    choice[Pchoice].render(700, 300, ren, NULL);
-                    choice[COMchoice].render(300, 300, ren, NULL);
+                if (SDL_GetTicks64() - showchoice <= 2000){
+                    choice[Pchoice].render(600, 200, ren, NULL);
+                    choice[COMchoice].render(470, 200, ren, NULL);
                 }
                 else {
                     if ((Pchoice == 0 && COMchoice == 2) || (Pchoice == 1 && COMchoice == 0)
@@ -125,30 +184,22 @@ bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
                 }
             }
         }
-        string str_val = "Win :";
-        str_val += std::to_string(NumWins);
-        str_val += "  Games : ";
-        str_val += std::to_string(NumGames);
-        str_val += " /5";
-        showNum.setText(str_val);
-        showNum.LoadFromRenderText(font, ren);
-        showNum.RenderText(ren, 0, 0);
         StartTime = SDL_GetTicks64();
         if (NumWins == 3) {
-            result[0].render(485, 200, ren, NULL);
+            result[0].render(465, 175, ren, NULL);
             SDL_RenderPresent(ren);
-            SDL_Delay(1000);
-            break;
+            Running = false;
         }
         if (NumGames - NumWins > 3 ||(NumGames - 1 == 5 && NumWins < 3)) {
             dowin = false;
-            result[1].render(485, 200, ren, NULL);
+            result[1].render(440, 175, ren, NULL);
             SDL_RenderPresent(ren);
-            SDL_Delay(1000);
-            break;
+            Running = false;
         }
+        show_frame(ren, font, 1);
+        show_num(ren, font, NumGames, NumWins);
         SDL_RenderPresent(ren);
-
+        if (! Running) SDL_Delay(2000);
     }
     // close
     CloseMap1(ren);

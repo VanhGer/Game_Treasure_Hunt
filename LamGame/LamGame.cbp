@@ -43,6 +43,7 @@
 		<Unit filename="include/Map2.h" />
 		<Unit filename="include/Map3.h" />
 		<Unit filename="include/Map4.h" />
+		<Unit filename="include/Map5.h" />
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/TextObject.h" />
 		<Unit filename="include/Weapon.h" />
@@ -56,6 +57,7 @@
 		<Unit filename="src/Map2.cpp" />
 		<Unit filename="src/Map3.cpp" />
 		<Unit filename="src/Map4.cpp" />
+		<Unit filename="src/Map5.cpp" />
 		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/TextObject.cpp" />
 		<Unit filename="src/Weapon.cpp" />

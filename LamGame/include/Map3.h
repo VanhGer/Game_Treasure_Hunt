@@ -22,7 +22,6 @@ bool CheckIntersect(int x, int y, int w, int h, int x1, int y1, int w1, int h1);
 void Spawn_Ost(SDL_Renderer *ren, int n);
 void show_BloodBar(int x, int y, int Hp, SDL_Renderer *ren, LoadObject &Bar, LoadObject &Blood);
 void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font, int x, int y);
-void show_frame(SDL_Renderer *ren, TTF_Font *font, int id);
 void ChangeRMap3(int val);
 void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minX, int maxX, int minY, int maxY);
 void CheckCollision3();

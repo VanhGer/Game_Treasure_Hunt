@@ -7,9 +7,9 @@ MainCharacter:: ~MainCharacter(){
     clean();
 }
 void MainCharacter:: clean(){
+    //clean();
     for (int i = 0; i < 4; i++){
         Dir[i].free();
-        Rdir[i].h = 0; Rdir[i].w = 0;
         Rdir[i].x = 0; Rdir[i].y = 0;
         NumFrames[i] = 0;
     }
