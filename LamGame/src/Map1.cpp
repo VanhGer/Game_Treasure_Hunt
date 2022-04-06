@@ -41,8 +41,8 @@ void Ex_come(MainCharacter &Explorer, SDL_Renderer *ren, bool &RunGame){
         if (SDL_GetTicks64() - movingtime >= 50 && ! talk){
             if (Explorer.getY() != 275) Explorer.goUp(275, MainFrames, 0);
             else {
-                if (Explorer.getX() != 680) Explorer.goRight(680, MainFrames, 3);
-                else {Explorer.goLeft(670, MainFrames, 2); talk = true; }
+                if (Explorer.getX() != 650) Explorer.goRight(650, MainFrames, 3);
+                else {Explorer.goLeft(640, MainFrames, 2); talk = true; }
                 cur = 1;
             }
             movingtime = SDL_GetTicks64();
@@ -59,7 +59,7 @@ void Ex_come(MainCharacter &Explorer, SDL_Renderer *ren, bool &RunGame){
     }
 }
 void LoadMap1(SDL_Renderer *ren){
-    BackGround[1].loadFromFile("GameHKI/Map1/map1.png", ren);
+    BackGround[1].loadFromFile("GameHKI/Map1/map12.png", ren);
     showNum.SetColor(TextObject::WHITE_TEXT);
     for (int i = 0; i < 3; i++){
         OTT[i].h = 120; OTT[i].w = 120; OTT[i].x = 0; OTT[i].y = 0;
@@ -81,10 +81,11 @@ void LoadMap1(SDL_Renderer *ren){
     monk.loadFromFile("GameHKI/Map1/monk.png", ren);
 }
 void CloseMap1(SDL_Renderer *ren){
-    rock.free(); paper.free(); scissors.free(); monk.free(); mainp.free();
+    rock.free(); paper.free(); scissors.free(); monk.free();
     for (int i = 0; i < 3; i++) {tg[i].free(); choice[i].free();}
     result[0].free(); result[1].free();
     showNum.Free(); Explorer.clean();
+    BackGround[1].free();
 }
 void Intro(SDL_Renderer *ren, bool &RunGame, int id){
     LoadObject intro;
@@ -168,12 +169,12 @@ bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
                         }
                 }
                 if (click != 3)
-                    tg[click].render(510, 260, ren, &RNumber);
+                    tg[click].render(500, 260, ren, &RNumber);
             }
             if (donecount){
                 if (SDL_GetTicks64() - showchoice <= 2000){
                     choice[Pchoice].render(600, 200, ren, NULL);
-                    choice[COMchoice].render(470, 200, ren, NULL);
+                    choice[COMchoice].render(455, 200, ren, NULL);
                 }
                 else {
                     if ((Pchoice == 0 && COMchoice == 2) || (Pchoice == 1 && COMchoice == 0)
@@ -186,13 +187,13 @@ bool RunMap1(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
         }
         StartTime = SDL_GetTicks64();
         if (NumWins == 3) {
-            result[0].render(465, 175, ren, NULL);
+            result[0].render(455, 175, ren, NULL);
             SDL_RenderPresent(ren);
             Running = false;
         }
         if (NumGames - NumWins > 3 ||(NumGames - 1 == 5 && NumWins < 3)) {
             dowin = false;
-            result[1].render(440, 175, ren, NULL);
+            result[1].render(430, 175, ren, NULL);
             SDL_RenderPresent(ren);
             Running = false;
         }

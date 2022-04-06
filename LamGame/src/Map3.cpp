@@ -51,7 +51,7 @@ void LoadMap3(SDL_Renderer *ren){
     die.loadFromFile("GameHKI/Map3/die.png", ren);
     BackGround[3].loadFromFile("GameHKI/Map3/Map33.png", ren);
     for (int i = 0; i < 10; i++){
-        fire[i].loadWeapon(ren, "GameHKI/Map3/Enemy/fire2.png");
+        fire[i].loadWeapon(ren, "GameHKI/Map3/Enemy/fire.png");
         eball[i].loadWeapon(ren, "GameHKI/Map3/Enemy/eball.png");
         fire[i].setAdd(35); eball[i].setAdd(35);
         fire[i].setRObj(0, 0, 35, 35); eball[i].setRObj(0, 0, 35, 35);
@@ -140,6 +140,25 @@ void Spawn_Ost(SDL_Renderer *ren, int n){
         eball[i].setVy(2 + n / 10); eball[i].setDamn(3);
     }
 }
+void show_BloodBar(int x, int y, int Hp, SDL_Renderer *ren, LoadObject &Bar, LoadObject &Blood){
+    Hp = max(Hp, 0);
+    SDL_Rect BRect;
+    BRect.x = 0; BRect.y = 0; BRect.h = 10; BRect.w = 50;
+    Bar.render(x, y, ren, &BRect);
+    BRect.w = Hp * 2;
+    Blood.render(x, y, ren, &BRect);
+}
+void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font, int x, int y){
+    TextObject ExHp;
+    ExHp.SetColor(TextObject::BLACK_TEXT);
+    std::string str_hp = ": ";
+    std::string str_num = std::to_string(max(0, Explorer.getHp()));
+    str_hp += str_num;
+    ExHp.setText(str_hp);
+    ExHp.LoadFromRenderText(font, ren);
+    ExHp.RenderText(ren, x, y);
+    ExHp.Free();
+}
 void Ost_move(SDL_Renderer *ren){
     for (int i = 0; i < 10; i++){
         if (! Fappear[i]) continue;
@@ -188,25 +207,6 @@ void CheckCollision3(MainCharacter &Explorer, Uint64 &t){
             Eappear[i] = false;
         }
     }
-}
-void show_BloodBar(int x, int y, int Hp, SDL_Renderer *ren, LoadObject &Bar, LoadObject &Blood){
-    Hp = max(Hp, 0);
-    SDL_Rect BRect;
-    BRect.x = 0; BRect.y = 0; BRect.h = 10; BRect.w = 50;
-    Bar.render(x, y, ren, &BRect);
-    BRect.w = Hp * 2;
-    Blood.render(x, y, ren, &BRect);
-}
-void show_ExHp(MainCharacter &Explorer, SDL_Renderer *ren, TTF_Font *font, int x, int y){
-    TextObject ExHp;
-    ExHp.SetColor(TextObject::BLACK_TEXT);
-    std::string str_hp = ": ";
-    std::string str_num = std::to_string(max(0, Explorer.getHp()));
-    str_hp += str_num;
-    ExHp.setText(str_hp);
-    ExHp.LoadFromRenderText(font, ren);
-    ExHp.RenderText(ren, x, y);
-    ExHp.Free();
 }
 void Explorer_Move(MainCharacter &Explorer, SDL_Event e, int minY, int maxY, int minX, int maxX){
     //cout << minY << " " << maxY << " " << minX << " " << maxX << '\n';

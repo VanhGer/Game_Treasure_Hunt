@@ -58,7 +58,6 @@ bool initSDL(SDL_Window* &window) {
     return true;
 }
 void close(){
-    BackGround[4].free();
     SDL_DestroyRenderer(GRenderer);
     SDL_DestroyWindow(window);
     window = NULL;
@@ -78,13 +77,12 @@ bool loadFont(){
 	return true;
 }
 bool loadMedia() {
-    RMap = {0, 0, 1120, 630};
     return loadFont();
 }
 void Loading(){
     LoadObject loading;
     TextObject Percent;
-    loading.loadFromFile("GameHKI/lock.png", GRenderer);
+    loading.loadFromFile("GameHKI/Loading/loading.png", GRenderer);
     Percent.SetColor(TextObject::WHITE_TEXT);
     Uint64 stime = SDL_GetTicks64();
     int cur = 0;
@@ -106,11 +104,9 @@ void Loading(){
     loading.free(); Percent.Free();
 }
 bool LoadMainMenu(){
-    LoadObject Start, Quit; SDL_Rect Rstart, Rquit;
-    BackGround[0].loadFromFile("GameHKI/welcome.png", GRenderer);
-    Start.loadFromFile("GameHKI/Start.png", GRenderer);
-    Quit.loadFromFile("GameHKI/Quit.png", GRenderer);
-    Rstart = {0, 0, 128, 64}; Rquit = {0, 0, 128, 64};
+    SDL_Rect RWel;
+    BackGround[0].loadFromFile("GameHKI/Welcome/welcome.png", GRenderer);
+    RWel = {0, 0, 1120, 630};
     bool Running = true;
     int x, y, inside = 0;
     SDL_Event e;
@@ -121,32 +117,24 @@ bool LoadMainMenu(){
                 Running = false;
             }
             //Handle button events
-            if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP){
+            if(e.type == SDL_MOUSEBUTTONDOWN){
                 SDL_GetMouseState(&x, &y);
                 inside = 0;
-                if (x >= 300 && x <= 428 && y >= 500 && y <= 564) inside = 1;
-                if (x >= 630 && x <= 758 && y >= 500 && y <= 564) inside = 2;
-                if (e.type == SDL_MOUSEBUTTONDOWN && inside) {
-                    if (inside == 1) Rstart.x = 128;
-                    else Rquit.x = 128;
-                }
-                else {
-                    Rstart.x = 0; Rquit.x = 0; inside = 0;
-                }
+                if (x >= 254 && x <= 421 && y >= 405 && y <= 442) inside = 2;
+                if (x >= 708 && x <= 839 && y >= 405 && y <= 442) inside = 1;
             }
         }
         SDL_RenderClear(GRenderer);
-        BackGround[0].render(0, 0, GRenderer, &RMap);
-        Start.render(300, 500, GRenderer, &Rstart);
-        Quit.render(630, 500, GRenderer, &Rquit);
+        RWel.x = inside * 1120;
+        BackGround[0].render(0, 0, GRenderer, &RWel);
         SDL_RenderPresent(GRenderer);
         if (inside) {
             SDL_Delay(500);
             break;
         }
     }
-    BackGround[0].free(); Start.free(); Quit.free();
-    return (inside == 1);
+    BackGround[0].free();
+    return (inside == 2);
 }
 bool LoadGameOver(){
     LoadObject Gover, choose;
@@ -193,76 +181,53 @@ int main(int argc, char* argv[])
             logSDLError(cout, "Can not load media \n", 1);
         }
         else {
+            int level = 0;
             bool Running = true;
-            int level = 1;
-            if (LoadMainMenu()){
-                while (Running && level <= 6){
-                    if (level == 1){
-                        Loading();
-                        if (! RunMap1(GRenderer, LFont, RunGame)) {
-                            if (RunGame) LoadGameOver();
-                        }
-                        else level++;
-                        CloseMap1(GRenderer);
-                        if (! RunGame) Running = false;
-                        SDL_Delay(1000);
-                    }
-//                    else
-//                        if (level == 2){
-//                        Loading();
-//                        if (! RunMap2(GRenderer, LFont, RunGame)){
-//                            if (RunGame) LoadGameOver();
-//                        }
-//                        else level++;
-//                        CloseMap2(GRenderer);
-//                        if (! RunGame) Running = false;
-//                        SDL_Delay(1000);
-//                    }
-////                    else
-//                        if (level == 3){
-//                        Loading();
-//                        if (! RunMap3(GRenderer, LFont, RunGame)){
-//                            if (RunGame) LoadGameOver();
-//                        }
-//                        else level++;
-//                        CloseMap3(GRenderer);
-//                        if (! RunGame) Running = false;
-//                        SDL_Delay(1000);
-//                    }
-//                       else
-//                        if (level == 4){
-//                        Loading();
-//                        if (! RunMap4(GRenderer, LFont, RunGame)){
-//                            if (RunGame) LoadGameOver();
-//                        }
-//                        else level++;
-//                        CloseMap4(GRenderer);
-//                        if (! RunGame) Running = false;
-//                        SDL_Delay(1000);
-                        if (level == 5) {
-                            Loading();
-                            //RunMap5(GRenderer, RunGame);
-                            LoadGameOver();
-                        }
-                    }
-
+            while (Running){
+                if (level == 0) {
+                    if (LoadMainMenu()) level = 1;
+                    else Running = false;
                 }
-
-               // Loading();
-    //            if (RunMap1()){
-    //                Loading();
-    //            }
-//                if (RunMap4()){
-//                    cout << "win";
-//                }
-//                else cout << "ga vai lon";
-//                SDL_SetRenderDrawColor( GRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-//                SDL_RenderClear(GRenderer);
-//                LoadBackGround("GameHKI/GameOver.png", GRenderer);
-//                BackGround4.render(0, 0, GRenderer, &Map4);
-//                SDL_RenderPresent(GRenderer);
-//                SDL_Delay(5000);
-//            }
+                if (!Running) break;
+                if (level == 1) {
+                    Loading();
+                    if (RunMap1(GRenderer, LFont, Running)) level = 2;
+                    else {
+                        if (!LoadGameOver()) level = 0;
+                    }
+                }
+                if (!Running) break;
+                if (level == 2) {
+                    Loading();
+                    if (RunMap2(GRenderer, LFont, Running)) level = 3;
+                    else {
+                        if (!LoadGameOver()) level = 0;
+                    }
+                }
+                if (!Running) break;
+                if (level == 3) {
+                    Loading();
+                    if (RunMap3(GRenderer, LFont, Running)) level = 4;
+                    else {
+                        if (!LoadGameOver()) level = 0;
+                    }
+                }
+                if (!Running) break;
+                if (level == 4) {
+                    Loading();
+                    if (RunMap4(GRenderer, LFont, Running)) level = 5;
+                    else {
+                        if (!LoadGameOver()) level = 0;
+                    }
+                }
+                if (!Running) break;
+                if (level == 5) {
+                    Loading();
+                    RunMap5(GRenderer, Running);
+                    level = 0;
+                }
+                if (!Running) break;
+            }
         }
     }
     return 0;

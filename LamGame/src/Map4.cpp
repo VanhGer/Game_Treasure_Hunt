@@ -209,14 +209,12 @@ void Circle_Spawn(SDL_Renderer *ren, int tt, int curx){
 }
 void Normal_Spawn(SDL_Renderer *ren, int tt, int curx){
     std::ifstream f("GameHKI/Map4/Circle.txt");
-    int cnt = Rand(3, 7), q = Rand(min(3, 1 + tt/40), min(5, 1 + tt/10)), j = 1, n, x, y, cur = 0;
-    cur = cnt;
+    int cnt = Rand(3, 7), q = Rand(min(3, 1 + tt/40), min(5, 1 + tt/10)), j = 1, n, x, y;
     f >> n;
     for (int i = 1; i <= n; i++){
         f >> x >> y;
         x += RMap4.x; y += RMap4.y;
         if (cnt == 0) break;
-
         if (n - i + 1 > cnt) if (Rand(0, 1)) continue;
         cnt--;
         bool obturate = false;
