@@ -1,4 +1,7 @@
-linker settings : -lmingw32 -lSDL2main -lSDL2
+xem hướng dẫn setup môi trường tại:
++ https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/windows/index.php
++ https://www.youtube.com/watch?v=Gj3iXwvKmUY
+linker settings : -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 Search directories:
-Complier + E:\SDL2-2.0.20\x86_64-w64-mingw32\include\SDL2
-Linker : E:\SDL2-2.0.20\x86_64-w64-mingw32\lib
+Complier + SDL2-2.0.20\x86_64-w64-mingw32\include\SDL2
+Linker : SDL2-2.0.20\x86_64-w64-mingw32\lib

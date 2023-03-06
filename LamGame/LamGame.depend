@@ -177,3 +177,140 @@
 	<Common_Function.h>
 	<LoadObject.h>
 
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\main.cpp
+	"Common_Function.h"
+	"LoadObject.h"
+	"Character.h"
+	"MainCharacter.h"
+	"Enemy.h"
+	"Weapon.h"
+	"TextObject.h"
+	"Map1.h"
+	"Map2.h"
+	"Map3.h"
+	"Map4.h"
+	"Map5.h"
+
+1678088407 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\common_function.h
+	<iostream>
+	<fstream>
+	<chrono>
+	<random>
+	<stdio.h>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<Windows.h>
+	<string.h>
+	<vector>
+	<algorithm>
+	"Object.h"
+	"TextObject.h"
+	"LoadObject.h"
+	"MainCharacter.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\object.h
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\textobject.h
+	<iostream>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<cmath>
+	<SDL.h>
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\loadobject.h
+	<string.h>
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\maincharacter.h
+	"LoadObject.h"
+	"Character.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\character.h
+	<SDL.h>
+	<LoadObject.h>
+	<Object.h>
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\enemy.h
+	"LoadObject.h"
+	"Character.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\weapon.h
+	<LoadObject.h>
+	<Object.h>
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\map1.h
+	"Common_Function.h"
+	"TextObject.h"
+	"LoadObject.h"
+	"MainCharacter.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\map2.h
+	"Common_Function.h"
+	"TextObject.h"
+	"LoadObject.h"
+	"Map1.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\map3.h
+	"Common_Function.h"
+	"TextObject.h"
+	"LoadObject.h"
+	"Weapon.h"
+	"Map1.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\map4.h
+	"Common_Function.h"
+	"Weapon.h"
+	"Enemy.h"
+	"Character.h"
+	"TextObject.h"
+	"Map3.h"
+
+1678088023 d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\include\map5.h
+	<Common_Function.h>
+	<LoadObject.h>
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\character.cpp
+	"Character.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\common_function.cpp
+	"Common_Function.h"
+	"Object.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\enemy.cpp
+	"Enemy.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\loadobject.cpp
+	"LoadObject.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\maincharacter.cpp
+	"MainCharacter.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\map4.cpp
+	"Map4.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\object.cpp
+	"Object.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\textobject.cpp
+	"TextObject.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\weapon.cpp
+	"Weapon.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\map1.cpp
+	"Map1.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\map2.cpp
+	"Map2.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\map3.cpp
+	"Map3.h"
+
+1678088023 source:d:\code\game\game_treasure_hunt\game_treasure_hunt\lamgame\src\map5.cpp
+	"Map5.h"
+
