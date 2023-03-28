@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
             logSDLError(cout, "Can not load media \n", 1);
         }
         else {
-            int level = 0;
+            int level = 4;
             bool Running = true;
             while (Running){
                 if (level == 0) {

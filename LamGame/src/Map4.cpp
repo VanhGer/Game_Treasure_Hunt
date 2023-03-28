@@ -277,6 +277,11 @@ void CloseMap4(SDL_Renderer *ren){
 
 bool RunMap4(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     LoadMap4(ren);
+    ///
+    NumOfArrow = 4;
+    idArrow = 3;
+    numEnemyKilled = 60;
+    ///
     Intro(ren, RunGame, 4);
     SDL_Event e;
     Explorer.setX(SCREEN_WIDTH/2);
@@ -285,7 +290,7 @@ bool RunMap4(SDL_Renderer *ren, TTF_Font *font, bool &RunGame){
     Uint64 fpstime = SDL_GetTicks64(), lastTimeDamage = SDL_GetTicks64(), circle = SDL_GetTicks64(), normal = SDL_GetTicks64();
     Uint64 EMoveTime = SDL_GetTicks64(), ArrowSpawnTime = SDL_GetTicks64(), ArrowShootTime = SDL_GetTicks64(), AttackSpeed = 500;
     Uint64 RunningTime = SDL_GetTicks64();
-    int cnt = 0, tt = 0, curx = 2000, cury = 2000;
+    int cnt = 0, tt = 30, curx = 2000, cury = 2000;
     NumEnemy = 0;
     //Circle_Spawn(ren, tt, curx);
     while (Running) {
